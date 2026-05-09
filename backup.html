@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetConnect KE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* Backgrounds */
+            --page: #0B0917;
+            --sidebar: #0F0C1E;
+            --card: #15112A;
+            --card-h: #1C1836;
+
+            /* Purple */
+            --p: #7B6FD4;
+            --p-dim: rgba(123, 111, 212, 0.10);
+            --p-line: rgba(123, 111, 212, 0.14);
+
+            /* Semantic */
+            --green: #2ECC8E;
+            --green-d: rgba(46, 204, 142, 0.10);
+            --amber: #E8A030;
+            --amber-d: rgba(232, 160, 48, 0.10);
+            --red: #E05C6E;
+            --red-d: rgba(224, 92, 110, 0.10);
+            --mpesa: #27AE60;
+            --mpesa-d: rgba(39, 174, 96, 0.10);
+
+            /* Text */
+            --t1: #E8E4FF;
+            --t2: #8680B0;
+            --t3: #4A4472;
+            --t4: #2C2850;
+
+            /* Shadow — Creatia floating card feel on dark */
+            --shadow: 0 2px 16px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
+            --shadow-h: 0 4px 24px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+
+            --r: 14px;
+            --r-lg: 20px;
+            --font: 'Poppins', sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--page);
+            color: var(--t1);
+            font-size: 13px;
+            line-height: 1.5;
+            display: flex;
+        }
+
+        /* ── Sidebar ── */
+        .sb {
+            width: 212px;
+            flex-shrink: 0;
+            background: var(--sidebar);
+            border-right: 1px solid var(--p-line);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .sb-logo {
+            padding: 22px 20px 18px;
+            border-bottom: 1px solid var(--p-line);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sb-mark {
+            width: 32px;
+            height: 32px;
+            border-radius: 9px;
+            background: var(--p-dim);
+            border: 1px solid rgba(123, 111, 212, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .sb-mark svg {
+            width: 14px;
+            height: 14px;
+            color: var(--p);
+        }
+
+        .sb-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--t1);
+        }
+
+        .sb-tag {
+            font-size: 10px;
+            color: var(--t3);
+        }
+
+        .nav {
+            flex: 1;
+            padding: 10px 0;
+            overflow-y: auto;
+        }
+
+        .nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-sec {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--t4);
+            padding: 12px 18px 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 18px;
+            font-size: 12px;
+            color: var(--t3);
+            cursor: pointer;
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: color .15s, background .15s;
+        }
+
+        .nav-item:hover {
+            color: var(--t2);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-item.on {
+            color: var(--t1);
+            font-weight: 500;
+            border-left-color: var(--p);
+            background: var(--p-dim);
+        }
+
+        .nav-item svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+            opacity: 0.5;
+        }
+
+        .nav-item.on svg,
+        .nav-item:hover svg {
+            opacity: 0.8;
+        }
+
+        .nb {
+            margin-left: auto;
+            font-size: 9px;
+            font-weight: 500;
+            padding: 1px 6px;
+            border-radius: 20px;
+        }
+
+        .nb.p {
+            background: var(--p-dim);
+            color: var(--p);
+        }
+
+        .nb.r {
+            background: var(--red-d);
+            color: var(--red);
+        }
+
+        .nb.g {
+            background: var(--green-d);
+            color: var(--green);
+        }
+
+        .sb-foot {
+            padding: 14px 16px;
+            border-top: 1px solid var(--p-line);
+        }
+
+        .agent {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 12px;
+            border-radius: var(--r);
+            background: var(--green-d);
+            border: 1px solid rgba(46, 204, 142, 0.14);
+        }
+
+        .a-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            flex-shrink: 0;
+            animation: agentPulse 2.5s ease infinite;
+        }
+
+        @keyframes agentPulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .35
+            }
+        }
+
+        .a-name {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--green);
+        }
+
+        .a-sub {
+            font-size: 9px;
+            color: var(--t3);
+        }
+
+        /* ── Main ── */
+        .main {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 26px;
+            border-bottom: 1px solid var(--p-line);
+            flex-shrink: 0;
+        }
+
+        .topbar h1 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--t1);
+        }
+
+        .topbar p {
+            font-size: 10px;
+            color: var(--t3);
+            margin-top: 1px;
+        }
+
+        .tb-r {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tb-clock {
+            font-size: 10px;
+            color: var(--t3);
+            padding: 4px 11px;
+            border-radius: 20px;
+            border: 1px solid var(--p-line);
+        }
+
+        .tb-clock em {
+            color: var(--t2);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        .tb-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--p-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tb-btn svg {
+            width: 13px;
+            height: 13px;
+            color: var(--t2);
+        }
+
+        .tb-btn .dot {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--red);
+            border: 1.5px solid var(--page);
+        }
+
+        .tb-av {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--p-dim);
+            border: 1px solid rgba(123, 111, 212, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--p);
+            cursor: pointer;
+        }
+
+        .tabs {
+            display: flex;
+            padding: 0 26px;
+            border-bottom: 1px solid var(--p-line);
+            flex-shrink: 0;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--t3);
+            cursor: pointer;
+            border-bottom: 1.5px solid transparent;
+            transition: color .15s;
+        }
+
+        .tab:hover {
+            color: var(--t2);
+        }
+
+        .tab.on {
+            color: var(--t1);
+            font-weight: 500;
+            border-bottom-color: var(--p);
+        }
+
+        .tab svg {
+            width: 11px;
+            height: 11px;
+            opacity: 0.6;
+        }
+
+        .tab.on svg {
+            opacity: 1;
+        }
+
+        .canvas {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .canvas::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .canvas::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .canvas::-webkit-scrollbar-thumb {
+            background: var(--t4);
+            border-radius: 3px;
+        }
+
+        .page {
+            display: none;
+            padding: 22px 26px 52px;
+            animation: pgIn .18s ease;
+        }
+
+        .page.on {
+            display: block;
+        }
+
+        @keyframes pgIn {
+            from {
+                opacity: 0;
+                transform: translateY(3px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* ── Pills ── */
+        .pill-row {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .pill {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: var(--t3);
+            border: 1px solid var(--p-line);
+            cursor: pointer;
+            transition: all .15s;
+        }
+
+        .pill:hover {
+            color: var(--t2);
+            border-color: rgba(123, 111, 212, 0.25);
+        }
+
+        .pill.on {
+            color: var(--p);
+            border-color: rgba(123, 111, 212, 0.35);
+            background: var(--p-dim);
+            font-weight: 500;
+        }
+
+        /* ── Floating card (Creatia-style) ── */
+        .card {
+            background: var(--card);
+            border-radius: var(--r-lg);
+            box-shadow: var(--shadow);
+            transition: box-shadow .2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-h);
+        }
+
+        .cp {
+            padding: 18px;
+        }
+
+        .cp-sm {
+            padding: 14px 16px;
+        }
+
+        /* ── Grid ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 12px;
+        }
+
+        .c3 {
+            grid-column: span 3;
+        }
+
+        .c4 {
+            grid-column: span 4;
+        }
+
+        .c5 {
+            grid-column: span 5;
+        }
+
+        .c6 {
+            grid-column: span 6;
+        }
+
+        .c7 {
+            grid-column: span 7;
+        }
+
+        .c8 {
+            grid-column: span 8;
+        }
+
+        .c12 {
+            grid-column: span 12;
+        }
+
+        .mb {
+            margin-bottom: 12px;
+        }
+
+        /* ── KPI card ── */
+        /* Creatia-style: clean metric tile, no decorators, value dominates */
+        .kpi-label {
+            font-size: 10px;
+            color: var(--t3);
+            margin-bottom: 8px;
+        }
+
+        .kpi-val {
+            font-size: 30px;
+            font-weight: 600;
+            color: var(--t1);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .kpi-val .u {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--t3);
+            margin-left: 2px;
+        }
+
+        .kpi-foot {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 10px;
+            color: var(--t3);
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--p-line);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 9px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 20px;
+        }
+
+        .badge.g {
+            background: var(--green-d);
+            color: var(--green);
+        }
+
+        .badge.a {
+            background: var(--amber-d);
+            color: var(--amber);
+        }
+
+        .badge.r {
+            background: var(--red-d);
+            color: var(--red);
+        }
+
+        /* ── Metric tiles (Creatia slide 7 — full fill, white text, confident) ── */
+        .metric-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .metric-tile {
+            border-radius: var(--r-lg);
+            padding: 20px 18px;
+            box-shadow: var(--shadow);
+        }
+
+        .metric-tile.m-p {
+            background: var(--p);
+        }
+
+        .metric-tile.m-g {
+            background: #1a6644;
+        }
+
+        .metric-tile.m-d {
+            background: var(--card);
+            border: 1px solid var(--p-line);
+        }
+
+        .metric-num {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .metric-tile.m-p .metric-num {
+            color: #fff;
+        }
+
+        .metric-tile.m-g .metric-num {
+            color: var(--green);
+        }
+
+        .metric-tile.m-d .metric-num {
+            color: var(--amber);
+        }
+
+        .metric-lbl {
+            font-size: 10px;
+            margin-top: 5px;
+        }
+
+        .metric-tile.m-p .metric-lbl {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .metric-tile.m-g .metric-lbl {
+            color: rgba(46, 204, 142, 0.65);
+        }
+
+        .metric-tile.m-d .metric-lbl {
+            color: var(--t3);
+        }
+
+        .metric-sub {
+            font-size: 9px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-tile.m-p .metric-sub {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .metric-tile.m-g .metric-sub {
+            color: rgba(46, 204, 142, 0.4);
+        }
+
+        .metric-tile.m-d .metric-sub {
+            color: var(--t4);
+            border-top-color: var(--p-line);
+        }
+
+        .metric-badge {
+            display: inline-flex;
+            font-size: 8px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+
+        .metric-tile.m-p .metric-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .metric-tile.m-g .metric-badge {
+            background: rgba(46, 204, 142, 0.15);
+            color: var(--green);
+        }
+
+        .metric-tile.m-d .metric-badge {
+            background: var(--amber-d);
+            color: var(--amber);
+        }
+
+        /* ── Insight band (Creatia horizontal cells) ── */
+        .iband {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--p-line);
+            border-radius: var(--r);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+        }
+
+        .ib {
+            background: var(--card);
+            padding: 13px 14px;
+        }
+
+        .ib-l {
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--t3);
+            margin-bottom: 5px;
+        }
+
+        .ib-v {
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.3px;
+        }
+
+        .ib-s {
+            font-size: 9px;
+            color: var(--t3);
+            margin-top: 3px;
+        }
+
+        /* ── Card header ── */
+        .ch {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .ch-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--t1);
+        }
+
+        .ch-sub {
+            font-size: 10px;
+            color: var(--t3);
+            margin-top: 2px;
+            line-height: 1.4;
+        }
+
+        .c-tag {
+            font-size: 9px;
+            font-weight: 500;
+            padding: 2px 9px;
+            border-radius: 20px;
+            background: var(--p-dim);
+            color: var(--p);
+            border: 1px solid rgba(123, 111, 212, 0.15);
+            flex-shrink: 0;
+        }
+
+        .live {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--green);
+            flex-shrink: 0;
+        }
+
+        .live-d {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 1.6s ease infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        /* ── Speedometer ── */
+        .spd {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 10px 10px;
+        }
+
+        .spd-t {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--t1);
+            text-align: center;
+        }
+
+        .spd-s {
+            font-size: 9px;
+            color: var(--t3);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .spd-val {
+            display: flex;
+            align-items: baseline;
+            gap: 2px;
+            margin-top: 4px;
+        }
+
+        .spd-v {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .spd-u {
+            font-size: 9px;
+            color: var(--t3);
+        }
+
+        .spd-range {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 8px;
+            color: var(--t4);
+            margin-top: 3px;
+            padding: 0 2px;
+        }
+
+        /* ── Legend ── */
+        .leg {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .leg-i {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10px;
+            color: var(--t2);
+        }
+
+        .leg-d {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ── Table — Creatia pill cells ── */
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tbl th {
+            font-size: 9px;
+            font-weight: 500;
+            color: var(--t3);
+            padding: 0 0 9px;
+            text-align: left;
+            border-bottom: 1px solid var(--p-line);
+        }
+
+        .tbl td {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 11px;
+            color: var(--t1);
+            vertical-align: middle;
+        }
+
+        .tbl tr:last-child td {
+            border-bottom: none;
+        }
+
+        .zone-name {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .zdot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Creatia-style pill cells for status */
+        .stat {
+            font-size: 9px;
+            font-weight: 500;
+            padding: 3px 9px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .stat.ok {
+            background: var(--green-d);
+            color: var(--green);
+        }
+
+        .stat.warn {
+            background: var(--amber-d);
+            color: var(--amber);
+        }
+
+        /* ── Progress bar with floating pill (Creatia slide 11/25) ── */
+        .prog-wrap {
+            margin-bottom: 14px;
+        }
+
+        .prog-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--t1);
+            margin-bottom: 7px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .prog-label span {
+            font-size: 10px;
+            color: var(--t3);
+            font-weight: 400;
+        }
+
+        .prog-track {
+            height: 6px;
+            background: var(--p-line);
+            border-radius: 6px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .prog-fill {
+            height: 100%;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .prog-fill::after {
+            content: attr(data-pct);
+            position: absolute;
+            right: -14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8px;
+            font-weight: 600;
+            background: var(--card-h);
+            color: var(--t1);
+            padding: 2px 5px;
+            border-radius: 20px;
+            border: 1px solid var(--p-line);
+            white-space: nowrap;
+        }
+
+        /* ── Runway (numbered step tiles with connecting line) ── */
+        .runway {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+            margin: 14px 0;
+            position: relative;
+        }
+
+        .runway::before {
+            content: '';
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            right: 14px;
+            height: 1px;
+            background: var(--p-line);
+            z-index: 0;
+        }
+
+        .rw {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rw-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 600;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .rw-body {
+            background: var(--card-h);
+            border-radius: var(--r);
+            padding: 10px 12px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--p-line);
+        }
+
+        .rw-top {
+            font-size: 8px;
+            color: var(--t3);
+            margin-bottom: 4px;
+        }
+
+        .rw-val {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            line-height: 1;
+        }
+
+        .rw-sub {
+            font-size: 9px;
+            color: var(--t3);
+            margin-top: 3px;
+        }
+
+        .rw-bar {
+            height: 2px;
+            background: var(--p-line);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .rw-fill {
+            height: 100%;
+            border-radius: 2px;
+        }
+
+        .rw.stretch .rw-body {
+            border-style: dashed;
+        }
+
+        /* ── Alerts ── */
+        .alerts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 9px 11px;
+            border-radius: var(--r);
+            border-left: 2px solid;
+            font-size: 11px;
+        }
+
+        .alert.w {
+            background: var(--amber-d);
+            border-left-color: var(--amber);
+        }
+
+        .alert.i {
+            background: var(--p-dim);
+            border-left-color: var(--p);
+        }
+
+        .alert.g {
+            background: var(--green-d);
+            border-left-color: var(--green);
+        }
+
+        .alert svg {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .alert-t {
+            font-weight: 500;
+            color: var(--t1);
+            font-size: 11px;
+        }
+
+        .alert-m {
+            font-size: 9px;
+            color: var(--t3);
+            margin-top: 2px;
+        }
+
+        /* ── Uptime ── */
+        .urow {
+            display: flex;
+            gap: 2px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .ub {
+            width: 13px;
+            height: 20px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .ub.up {
+            background: var(--p);
+            opacity: 0.45;
+        }
+
+        .ub.now {
+            background: var(--p);
+            opacity: 1;
+        }
+
+        .ub.dn {
+            background: var(--red);
+            opacity: 0.4;
+        }
+
+        /* ── Trio ── */
+        .trio {
+            display: flex;
+            border-top: 1px solid var(--p-line);
+            margin-top: 13px;
+            padding-top: 13px;
+        }
+
+        .trio-c {
+            flex: 1;
+            text-align: center;
+        }
+
+        .trio-c+.trio-c {
+            border-left: 1px solid var(--p-line);
+        }
+
+        .trio-n {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--t1);
+        }
+
+        .trio-l {
+            font-size: 9px;
+            color: var(--t3);
+            margin-top: 2px;
+        }
+
+        /* ── Proj statement ── */
+        .proj-stmt {
+            background: var(--card-h);
+            border: 1px solid var(--p-line);
+            border-radius: var(--r);
+            padding: 13px 15px;
+            font-size: 11px;
+            color: var(--t2);
+            line-height: 1.7;
+        }
+
+        .proj-stmt strong {
+            color: var(--t1);
+            font-weight: 500;
+        }
+
+        .proj-stmt .hi {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        /* ── Churn risk ── */
+        .risk-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .risk-row:last-child {
+            border-bottom: none;
+        }
+
+        .rr-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .rr-zone {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--t1);
+            flex: 1;
+        }
+
+        .rr-ct {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--amber);
+            width: 55px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .rr-bar {
+            width: 56px;
+            height: 3px;
+            background: var(--p-line);
+            border-radius: 2px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .rr-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--red), var(--amber));
+        }
+
+        .rr-val {
+            font-size: 9px;
+            color: var(--t3);
+            width: 58px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        /* ── Txn feed ── */
+        .txn-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background .15s;
+            border-radius: 6px;
+        }
+
+        .txn-row:last-child {
+            border-bottom: none;
+        }
+
+        .tx-id {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--p);
+            width: 68px;
+            flex-shrink: 0;
+        }
+
+        .tx-zone {
+            font-size: 10px;
+            color: var(--t2);
+            width: 74px;
+            flex-shrink: 0;
+        }
+
+        .tx-plan {
+            font-size: 10px;
+            color: var(--t3);
+            flex: 1;
+        }
+
+        .tx-amt {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--t1);
+            width: 68px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .tx-ref {
+            font-size: 9px;
+            color: var(--t4);
+            width: 76px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .tx-t {
+            font-size: 9px;
+            color: var(--t3);
+            width: 38px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .tx-s {
+            width: 50px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .mpill {
+            display: inline-flex;
+            font-size: 9px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 20px;
+        }
+
+        .mpill.ok {
+            background: var(--mpesa-d);
+            color: var(--mpesa);
+        }
+
+        .mpill.w {
+            background: var(--amber-d);
+            color: var(--amber);
+        }
+
+        .mpill.r {
+            background: var(--red-d);
+            color: var(--red);
+        }
+
+        /* ── Heatmap ── */
+        .hmap-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 3px;
+        }
+
+        .hmap-lbl {
+            font-size: 8px;
+            color: var(--t4);
+            width: 22px;
+            flex-shrink: 0;
+        }
+
+        .hmap-grid {
+            display: grid;
+            grid-template-columns: repeat(24, 1fr);
+            gap: 2px;
+            flex: 1;
+        }
+
+        .hcell {
+            height: 16px;
+            border-radius: 2px;
+        }
+
+        /* ── Update dot ── */
+        .u-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--green);
+            opacity: 0;
+            transition: opacity .3s;
+            pointer-events: none;
+        }
+
+        .u-dot.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sb">
+        <div class="sb-logo">
+            <div class="sb-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                    <path d="M2 17l10 5 10-5" />
+                    <path d="M2 12l10 5 10-5" />
+                </svg>
+            </div>
+            <div>
+                <div class="sb-name">NetConnect KE</div>
+                <div class="sb-tag">Operations</div>
+            </div>
+        </div>
+        <nav class="nav">
+            <div class="nav-sec">Overview</div>
+            <a class="nav-item on" href="#" onclick="go('noc',this);return false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+                NOC dashboard
+            </a>
+            <a class="nav-item" href="#" onclick="go('pay',this);return false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="1" y="4" width="22" height="16" rx="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+                M-Pesa analytics
+                <span class="nb g">Live</span>
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z" />
+                </svg>
+                Network map
+            </a>
+            <div class="nav-sec">Operations</div>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Subscribers <span class="nb p">28.4K</span>
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                </svg>
+                Incidents <span class="nb r">2</span>
+            </a>
+            <div class="nav-sec">Infrastructure</div>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="2" y="2" width="20" height="8" rx="2" />
+                    <rect x="2" y="14" width="20" height="8" rx="2" />
+                </svg>
+                Infrastructure
+            </a>
+            <a class="nav-item" href="#">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                </svg>
+                Analytics
+            </a>
+        </nav>
+        <div class="sb-foot">
+            <div class="agent">
+                <div class="a-dot"></div>
+                <div>
+                    <div class="a-name">AI agent active</div>
+                    <div class="a-sub">31 Nairobi nodes</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+
+        <header class="topbar">
+            <div>
+                <h1>Nairobi operations centre</h1>
+                <p>Nairobi County · 47 sub-zones · 31 nodes active</p>
+            </div>
+            <div class="tb-r">
+                <div class="tb-clock"><em id="clock">—</em> EAT</div>
+                <div class="tb-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <div class="dot"></div>
+                </div>
+                <div class="tb-av">NK</div>
+            </div>
+        </header>
+
+        <div class="tabs">
+            <div class="tab on" onclick="go('noc',this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" />
+                </svg>
+                Network operations
+            </div>
+            <div class="tab" onclick="go('pay',this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="1" y="4" width="22" height="16" rx="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+                M-Pesa payments
+            </div>
+        </div>
+
+        <div class="canvas">
+
+            <!-- NOC page -->
+            <div class="page on" id="page-noc">
+                <div class="pill-row" style="margin-top:16px">
+                    <div class="pill on">All Nairobi</div>
+                    <div class="pill">Westlands</div>
+                    <div class="pill">CBD</div>
+                    <div class="pill">Kasarani</div>
+                    <div class="pill">Embakasi</div>
+                    <div class="pill">Karen</div>
+                    <div class="pill">Kilimani</div>
+                    <div class="pill">Ruaraka</div>
+                </div>
+
+                <!-- KPI strip -->
+                <div class="grid mb">
+                    <div class="card cp c3" style="position:relative">
+                        <div class="u-dot" id="ud1"></div>
+                        <div class="kpi-label">Active subscribers</div>
+                        <div class="kpi-val" id="kv-subs">28,416</div>
+                        <div class="kpi-foot"><span class="badge g">↑ 9.4%</span>+2,108 net adds · Target 32K</div>
+                    </div>
+                    <div class="card cp c3" style="position:relative">
+                        <div class="u-dot" id="ud2"></div>
+                        <div class="kpi-label">Network uptime, 30 days</div>
+                        <div class="kpi-val">99.4<span class="u">%</span></div>
+                        <div class="kpi-foot"><span class="badge g">↑ 0.2%</span>SLA 99.5% · 4.3h downtime</div>
+                    </div>
+                    <div class="card cp c3" style="position:relative">
+                        <div class="u-dot" id="ud3"></div>
+                        <div class="kpi-label">Avg throughput</div>
+                        <div class="kpi-val" id="kv-tput">24.7<span class="u">Gbps</span></div>
+                        <div class="kpi-foot"><span class="badge g">↑ 15%</span>Peak 41.3 Gbps at 20:22</div>
+                    </div>
+                    <div class="card cp c3">
+                        <div class="kpi-label">Active incidents</div>
+                        <div class="kpi-val">2</div>
+                        <div class="kpi-foot"><span class="badge a">1 warning</span>1 info · MTTR 38 min</div>
+                    </div>
+                </div>
+
+                <!-- Traffic + Donut -->
+                <div class="grid mb">
+                    <div class="card cp c8">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Live traffic — Nairobi backbone</div>
+                                <div class="ch-sub">Inbound vs outbound · Gbps · rolling 24h window</div>
+                            </div>
+                            <div class="live">
+                                <div class="live-d"></div>Live
+                            </div>
+                        </div>
+                        <div class="leg">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--p)"></div>Inbound
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(123,111,212,0.35)"></div>Outbound
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(46,204,142,0.25)"></div>Capacity
+                            </div>
+                        </div>
+                        <div style="position:relative;height:160px"><canvas id="tchart"></canvas></div>
+                    </div>
+                    <div class="card cp c4">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Subscriber mix</div>
+                                <div class="ch-sub">By package tier</div>
+                            </div>
+                        </div>
+                        <div style="position:relative;height:128px">
+                            <canvas id="donut"></canvas>
+                            <div
+                                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none">
+                                <div style="font-size:16px;font-weight:600;color:var(--t1)">28.4K</div>
+                                <div style="font-size:9px;color:var(--t3);margin-top:1px">subscribers</div>
+                            </div>
+                        </div>
+                        <div class="leg" style="margin-top:8px;justify-content:center">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--p)"></div>Home 10M
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:#2d228a"></div>Biz 50M
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(123,111,212,0.45)"></div>Home 30M
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speedos -->
+                <div class="grid mb">
+                    <div class="card c3 spd">
+                        <div class="spd-t">Download speed</div>
+                        <div class="spd-s">Nairobi avg · all tiers</div><canvas id="g1" width="150" height="88"
+                            style="width:100%;max-width:150px"></canvas>
+                        <div class="spd-val"><span class="spd-v" id="sv1" style="color:var(--green)">94.2</span><span
+                                class="spd-u">Mbps</span></div>
+                        <div class="spd-range"><span>0</span><span>75</span><span>150</span></div>
+                    </div>
+                    <div class="card c3 spd">
+                        <div class="spd-t">Upload speed</div>
+                        <div class="spd-s">Nairobi avg · all tiers</div><canvas id="g2" width="150" height="88"
+                            style="width:100%;max-width:150px"></canvas>
+                        <div class="spd-val"><span class="spd-v" id="sv2" style="color:var(--green)">38.6</span><span
+                                class="spd-u">Mbps</span></div>
+                        <div class="spd-range"><span>0</span><span>37</span><span>75</span></div>
+                    </div>
+                    <div class="card c3 spd">
+                        <div class="spd-t">Avg latency</div>
+                        <div class="spd-s">Round-trip · Nairobi PoPs</div><canvas id="g3" width="150" height="88"
+                            style="width:100%;max-width:150px"></canvas>
+                        <div class="spd-val"><span class="spd-v" id="sv3" style="color:var(--green)">22.4</span><span
+                                class="spd-u">ms</span></div>
+                        <div class="spd-range"><span>0</span><span>60</span><span>120</span></div>
+                    </div>
+                    <div class="card c3 spd">
+                        <div class="spd-t">Bandwidth utilization</div>
+                        <div class="spd-s">Total capacity consumed</div><canvas id="g4" width="150" height="88"
+                            style="width:100%;max-width:150px"></canvas>
+                        <div class="spd-val"><span class="spd-v" id="sv4" style="color:var(--amber)">68</span><span
+                                class="spd-u">%</span></div>
+                        <div class="spd-range"><span>0%</span><span>50%</span><span>100%</span></div>
+                    </div>
+                </div>
+
+                <!-- Zone table + BW + Alerts -->
+                <div class="grid mb">
+                    <div class="card cp c5">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Sub-county node health</div>
+                                <div class="ch-sub">Uptime, capacity and status by zone</div>
+                            </div>
+                            <div class="c-tag">31 nodes</div>
+                        </div>
+                        <table class="tbl">
+                            <thead>
+                                <tr>
+                                    <th>Zone</th>
+                                    <th>Subscribers</th>
+                                    <th>Uptime</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:var(--p)"></span>Westlands</span></td>
+                                    <td>6,840</td>
+                                    <td>99.9%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:#6b63d0"></span>CBD</span></td>
+                                    <td>5,210</td>
+                                    <td>99.7%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:#8b7ef8"></span>Kilimani</span></td>
+                                    <td>3,980</td>
+                                    <td>99.8%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:var(--green)"></span>Karen</span></td>
+                                    <td>3,460</td>
+                                    <td>99.6%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:var(--amber)"></span>Kasarani</span></td>
+                                    <td>3,120</td>
+                                    <td>97.8%</td>
+                                    <td><span class="stat warn">Degraded</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:#5a48c8"></span>Embakasi</span></td>
+                                    <td>2,880</td>
+                                    <td>99.3%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:#4535a8"></span>Ruaraka</span></td>
+                                    <td>1,640</td>
+                                    <td>99.5%</td>
+                                    <td><span class="stat ok">Optimal</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="zone-name"><span class="zdot"
+                                                style="background:var(--red)"></span>Mathare</span></td>
+                                    <td>890</td>
+                                    <td>94.1%</td>
+                                    <td><span class="stat warn">Degraded</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card cp c4">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Zone bandwidth pressure</div>
+                                <div class="ch-sub">Utilisation by PoP · threshold 80%</div>
+                            </div>
+                        </div>
+                        <div style="position:relative;height:175px"><canvas id="bwchart"></canvas></div>
+                        <div class="trio">
+                            <div class="trio-c">
+                                <div class="trio-n">22.4</div>
+                                <div class="trio-l">ms latency</div>
+                            </div>
+                            <div class="trio-c">
+                                <div class="trio-n">0.04</div>
+                                <div class="trio-l">% pkt loss</div>
+                            </div>
+                            <div class="trio-c">
+                                <div class="trio-n">99.4</div>
+                                <div class="trio-l">% uptime</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card cp c3">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Active incidents</div>
+                                <div class="ch-sub">AI-triaged</div>
+                            </div>
+                            <div class="c-tag"
+                                style="background:var(--amber-d);color:var(--amber);border-color:rgba(232,160,48,0.15)">
+                                2 open</div>
+                        </div>
+                        <div class="alerts">
+                            <div class="alert w"><svg viewBox="0 0 24 24" fill="none" stroke="var(--amber)"
+                                    stroke-width="2">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                    <line x1="12" y1="9" x2="12" y2="13" />
+                                </svg>
+                                <div>
+                                    <div class="alert-t">Kasarani BW &gt;85%</div>
+                                    <div class="alert-m">14:10 · AI rerouting via Thika Rd</div>
+                                </div>
+                            </div>
+                            <div class="alert i"><svg viewBox="0 0 24 24" fill="none" stroke="var(--p)"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <line x1="12" y1="8" x2="12" y2="12" />
+                                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                                </svg>
+                                <div>
+                                    <div class="alert-t">Mathare node upgrade</div>
+                                    <div class="alert-m">02:00–04:00 · ~890 subs impacted</div>
+                                </div>
+                            </div>
+                            <div class="alert g"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)"
+                                    stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22,4 12,14.01 9,11.01" />
+                                </svg>
+                                <div>
+                                    <div class="alert-t">Westlands fiber complete</div>
+                                    <div class="alert-m">13:55 · +10 Gbps · verified ✓</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--p-line)">
+                            <div style="font-size:10px;color:var(--t3);margin-bottom:6px">30-day uptime</div>
+                            <div class="urow" id="urow"></div>
+                            <div
+                                style="display:flex;justify-content:space-between;font-size:8px;color:var(--t4);margin-top:5px">
+                                <span>30d ago</span><span>Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue + Growth -->
+                <div class="grid">
+                    <div class="card cp c7">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Monthly revenue breakdown</div>
+                                <div class="ch-sub">Residential · Business · Enterprise · KES millions</div>
+                            </div>
+                            <div style="font-size:15px;font-weight:600;color:var(--t1)">KES 87.4M</div>
+                        </div>
+                        <div class="leg">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--p)"></div>Residential
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:#2d228a"></div>Business
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(123,111,212,0.4)"></div>Enterprise
+                            </div>
+                        </div>
+                        <div style="position:relative;height:148px"><canvas id="revchart"></canvas></div>
+                    </div>
+                    <div class="card cp c5">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Net adds vs churn</div>
+                                <div class="ch-sub">Monthly · Nairobi · target +1,500 / month by Aug</div>
+                            </div>
+                        </div>
+                        <div class="leg">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--p)"></div>Net adds
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(224,92,110,0.55)"></div>Churn
+                            </div>
+                        </div>
+                        <div style="position:relative;height:148px"><canvas id="growthchart"></canvas></div>
+                    </div>
+                </div>
+
+            </div><!-- /noc -->
+
+
+            <!-- Payments page -->
+            <div class="page" id="page-pay">
+                <div style="margin:16px 0 16px">
+                    <div style="font-size:11px;color:var(--t3);margin-bottom:3px">M-Pesa · Nairobi County</div>
+                    <div style="font-size:18px;font-weight:600;color:var(--t1);letter-spacing:-0.3px">M-Pesa revenue
+                        engine</div>
+                    <div style="font-size:10px;color:var(--t3);margin-top:2px">Real-time collection analytics · May 2025
+                    </div>
+                </div>
+
+                <!-- Creatia metric tiles (slide 7 pattern) -->
+                <div class="metric-strip">
+                    <div class="metric-tile m-p">
+                        <div class="metric-badge">↑ 12.4% vs April</div>
+                        <div class="metric-num">KES 87.4M</div>
+                        <div class="metric-lbl">Total revenue · May 2025</div>
+                        <div class="metric-sub">28,416 paying subs · KES 3,075 avg/sub</div>
+                    </div>
+                    <div class="metric-tile m-g">
+                        <div class="metric-badge">M-Pesa API · 99.97% up</div>
+                        <div class="metric-num" id="collect-rate">96.8%</div>
+                        <div class="metric-lbl">Payment collection rate</div>
+                        <div class="metric-sub">896 overdue · KES 2.4M at risk · auto-retry on</div>
+                    </div>
+                    <div class="metric-tile m-d">
+                        <div class="metric-badge">⚠ 312 failed transactions</div>
+                        <div class="metric-num">4.4 mo</div>
+                        <div class="metric-lbl">Runway to KES 120M / month</div>
+                        <div class="metric-sub">+1,100 net subs/month · need +4,824 total</div>
+                    </div>
+                </div>
+
+                <!-- Insight band -->
+                <div class="iband">
+                    <div class="ib">
+                        <div class="ib-l">Daily collection avg</div>
+                        <div class="ib-v" style="color:var(--green)">KES 2.82M</div>
+                        <div class="ib-s">Target KES 3.0M / day</div>
+                    </div>
+                    <div class="ib">
+                        <div class="ib-l">Peak payment window</div>
+                        <div class="ib-v" style="color:var(--t1)">8–9 AM</div>
+                        <div class="ib-s">42% of daily volume · EAT</div>
+                    </div>
+                    <div class="ib">
+                        <div class="ib-l">Average transaction</div>
+                        <div class="ib-v" style="color:var(--t1)">KES 3,075</div>
+                        <div class="ib-s">Blended · all plans</div>
+                    </div>
+                    <div class="ib">
+                        <div class="ib-l">Overdue accounts</div>
+                        <div class="ib-v" style="color:var(--amber)">896</div>
+                        <div class="ib-s">3.2% of subscriber base</div>
+                    </div>
+                    <div class="ib">
+                        <div class="ib-l">Retry recovery rate</div>
+                        <div class="ib-v" style="color:var(--green)">74%</div>
+                        <div class="ib-s">KES 1.8M recoverable</div>
+                    </div>
+                </div>
+
+                <div class="grid mb" style="margin-top:12px">
+                    <!-- Revenue trend -->
+                    <div class="card cp c7">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">M-Pesa collections — 2025</div>
+                                <div class="ch-sub">Actual vs projection vs target corridor · KES millions</div>
+                            </div>
+                            <div style="font-size:13px;font-weight:600;color:var(--green)">KES 103M forecast</div>
+                        </div>
+                        <div class="leg">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--mpesa)"></div>Actual
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d"
+                                    style="background:rgba(39,174,96,0.35);border:1px dashed var(--mpesa)"></div>
+                                Projection
+                            </div>
+                        </div>
+                        <div style="position:relative;height:165px"><canvas id="mptrend"></canvas></div>
+                    </div>
+
+                    <!-- Projection with Creatia numbered step tiles + connecting line -->
+                    <div class="card cp c5">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Revenue runway</div>
+                                <div class="ch-sub">AI-modelled growth · Nairobi</div>
+                            </div>
+                            <div class="live">
+                                <div class="live-d"></div>AI model
+                            </div>
+                        </div>
+
+                        <!-- Creatia numbered timeline (slide 15 pattern) -->
+                        <div class="runway">
+                            <div class="rw">
+                                <div class="rw-num" style="background:var(--p)">01</div>
+                                <div class="rw-body">
+                                    <div class="rw-top">Today</div>
+                                    <div class="rw-val" style="color:var(--t1)">28,416</div>
+                                    <div class="rw-sub">KES 87.4M / mo</div>
+                                    <div class="rw-bar">
+                                        <div class="rw-fill" style="width:88%;background:var(--p)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rw">
+                                <div class="rw-num" style="background:#2a8a58">02</div>
+                                <div class="rw-body">
+                                    <div class="rw-top">+2 months</div>
+                                    <div class="rw-val" style="color:var(--green)">30,616</div>
+                                    <div class="rw-sub">KES 94M / mo</div>
+                                    <div class="rw-bar">
+                                        <div class="rw-fill" style="width:95%;background:var(--green)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rw">
+                                <div class="rw-num" style="background:#1a7a48">03</div>
+                                <div class="rw-body">
+                                    <div class="rw-top">+4.4 months</div>
+                                    <div class="rw-val" style="color:var(--green)">33,240</div>
+                                    <div class="rw-sub">KES 102M / mo</div>
+                                    <div class="rw-bar">
+                                        <div class="rw-fill" style="width:100%;background:var(--green)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rw stretch">
+                                <div class="rw-num"
+                                    style="background:rgba(232,160,48,0.2);color:var(--amber);border:1px solid var(--amber-d)">
+                                    04</div>
+                                <div class="rw-body">
+                                    <div class="rw-top">Dec 2025 target</div>
+                                    <div class="rw-val" style="color:var(--amber)">38,000</div>
+                                    <div class="rw-sub">KES 120M stretch</div>
+                                    <div class="rw-bar">
+                                        <div class="rw-fill" style="width:75%;background:var(--amber)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="proj-stmt">
+                            At <strong>+1,100 subs/month</strong>, NetConnect reaches <strong>KES 100M/month in 4.4
+                                months</strong>.
+                            Hitting KES 120M by December requires <span class="hi">+36% acceleration</span>.
+                            Focus zones: <strong>Embakasi (38%)</strong> and <strong>Kasarani (42%)</strong> — combined
+                            <span class="hi">KES 18M untapped monthly</span>.
+                        </div>
+                    </div>
+
+                    <!-- Heatmap -->
+                    <div class="card cp c5">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">When Nairobi pays</div>
+                                <div class="ch-sub">Transaction volume by hour · 7-day avg · EAT</div>
+                            </div>
+                        </div>
+                        <div id="hmap"></div>
+                        <div
+                            style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:1px solid var(--p-line)">
+                            <div style="font-size:9px;color:var(--t4)">Lower</div>
+                            <div style="display:flex;gap:2px;align-items:center">
+                                <div style="width:7px;height:7px;border-radius:1px;background:rgba(39,174,96,0.08)">
+                                </div>
+                                <div style="width:7px;height:7px;border-radius:1px;background:rgba(39,174,96,0.28)">
+                                </div>
+                                <div style="width:7px;height:7px;border-radius:1px;background:rgba(39,174,96,0.60)">
+                                </div>
+                                <div style="width:7px;height:7px;border-radius:1px;background:var(--mpesa)"></div>
+                                <div style="font-size:9px;color:var(--t4);margin-left:4px">Higher</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zone collections -->
+                    <div class="card cp c7">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Collected vs potential by sub-county</div>
+                                <div class="ch-sub">May 2025 · KES millions · gap shows untapped revenue</div>
+                            </div>
+                        </div>
+                        <div class="leg">
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:var(--mpesa)"></div>Collected
+                            </div>
+                            <div class="leg-i">
+                                <div class="leg-d" style="background:rgba(123,111,212,0.35)"></div>Potential
+                            </div>
+                        </div>
+                        <div style="position:relative;height:175px"><canvas id="zonechart"></canvas></div>
+                    </div>
+
+                    <!-- Churn — with Creatia progress bar style -->
+                    <div class="card cp c5">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">Subscribers at risk</div>
+                                <div class="ch-sub">7+ days overdue · STK push retry active</div>
+                            </div>
+                            <div class="c-tag"
+                                style="background:var(--amber-d);color:var(--amber);border-color:rgba(232,160,48,0.15)">
+                                896 accounts</div>
+                        </div>
+                        <div id="riskrows"></div>
+                        <div
+                            style="margin-top:10px;padding-top:10px;border-top:1px solid var(--p-line);font-size:10px;color:var(--t3)">
+                            Retry success <span style="color:var(--green);font-weight:500">74%</span> · Estimated
+                            recovery <span style="color:var(--amber);font-weight:500">KES 1.8M</span>
+                        </div>
+                    </div>
+
+                    <!-- Txn feed -->
+                    <div class="card cp c12">
+                        <div class="ch">
+                            <div>
+                                <div class="ch-title">M-Pesa transaction stream</div>
+                                <div class="ch-sub">Real-time payments · Nairobi zones</div>
+                            </div>
+                            <div class="live">
+                                <div class="live-d"></div>Streaming
+                            </div>
+                        </div>
+                        <div
+                            style="display:flex;gap:10px;padding-bottom:7px;border-bottom:1px solid var(--p-line);margin-bottom:2px">
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:68px">Sub ID</div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:74px">Zone</div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);flex:1">Plan</div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:68px;text-align:right">
+                                Amount</div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:76px;text-align:center">
+                                M-Pesa ref</div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:38px;text-align:right">Time
+                            </div>
+                            <div style="font-size:9px;font-weight:500;color:var(--t3);width:50px;text-align:right">
+                                Status</div>
+                        </div>
+                        <div id="txnfeed">
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-08841</div>
+                                <div class="tx-zone">Westlands</div>
+                                <div class="tx-plan">Business 50Mbps</div>
+                                <div class="tx-amt">KES 5,500</div>
+                                <div class="tx-ref">NHK2A4X1Q</div>
+                                <div class="tx-t">14:31</div>
+                                <div class="tx-s"><span class="mpill ok">Paid</span></div>
+                            </div>
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-21103</div>
+                                <div class="tx-zone">Kilimani</div>
+                                <div class="tx-plan">Home 30Mbps</div>
+                                <div class="tx-amt">KES 3,200</div>
+                                <div class="tx-ref">NHK2B7R3P</div>
+                                <div class="tx-t">14:29</div>
+                                <div class="tx-s"><span class="mpill ok">Paid</span></div>
+                            </div>
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-04432</div>
+                                <div class="tx-zone">CBD</div>
+                                <div class="tx-plan">Enterprise</div>
+                                <div class="tx-amt">KES 12,000</div>
+                                <div class="tx-ref">NHK2C9S5M</div>
+                                <div class="tx-t">14:27</div>
+                                <div class="tx-s"><span class="mpill ok">Paid</span></div>
+                            </div>
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-17789</div>
+                                <div class="tx-zone">Kasarani</div>
+                                <div class="tx-plan">Home 10Mbps</div>
+                                <div class="tx-amt">KES 1,800</div>
+                                <div class="tx-ref" style="color:var(--t4)">—</div>
+                                <div class="tx-t">14:22</div>
+                                <div class="tx-s"><span class="mpill w">Retry</span></div>
+                            </div>
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-33201</div>
+                                <div class="tx-zone">Karen</div>
+                                <div class="tx-plan">Business 50Mbps</div>
+                                <div class="tx-amt">KES 5,500</div>
+                                <div class="tx-ref">NHK2D1T8L</div>
+                                <div class="tx-t">14:18</div>
+                                <div class="tx-s"><span class="mpill ok">Paid</span></div>
+                            </div>
+                            <div class="txn-row">
+                                <div class="tx-id">#SUB-55610</div>
+                                <div class="tx-zone">Ruaraka</div>
+                                <div class="tx-plan">Home 30Mbps</div>
+                                <div class="tx-amt">KES 3,200</div>
+                                <div class="tx-ref" style="color:var(--t4)">—</div>
+                                <div class="tx-t">14:08</div>
+                                <div class="tx-s"><span class="mpill r">Failed</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div><!-- /pay -->
+
+        </div><!-- /canvas -->
+    </div><!-- /main -->
+
+    <script>
+        /* Clock */
+        (function tick() {
+            const eat = new Date(Date.now() + 3 * 3600000);
+            document.getElementById('clock').textContent = eat.toISOString().substr(11, 5);
+            setTimeout(tick, 30000);
+        })();
+
+        /* Uptime */
+        (function () {
+            const c = document.getElementById('urow'), dn = [7, 22];
+            for (let i = 0; i < 30; i++) {
+                const b = document.createElement('div');
+                b.className = 'ub ' + (dn.includes(i) ? 'dn' : i < 24 ? 'up' : 'now');
+                c.appendChild(b);
+            }
+        })();
+
+        /* Churn risk */
+        (function () {
+            const d = [{ z: 'Kasarani', c: 'var(--amber)', n: 312, v: 'KES 562K', p: 35 }, { z: 'Mathare', c: 'var(--red)', n: 248, v: 'KES 446K', p: 28 }, { z: 'Embakasi', c: 'var(--amber)', n: 184, v: 'KES 331K', p: 21 }, { z: 'Ruaraka', c: 'var(--p)', n: 96, v: 'KES 173K', p: 11 }, { z: 'CBD', c: 'var(--p)', n: 56, v: 'KES 101K', p: 6 }];
+            const c = document.getElementById('riskrows');
+            d.forEach(x => c.innerHTML += `<div class="risk-row"><div class="rr-dot" style="background:${x.c}"></div><div class="rr-zone">${x.z}</div><div class="rr-ct">${x.n} subs</div><div class="rr-bar"><div class="rr-fill" style="width:${x.p}%"></div></div><div class="rr-val">${x.v}</div></div>`);
+        })();
+
+        /* Heatmap */
+        (function () {
+            const wrap = document.getElementById('hmap');
+            const vols = [12, 8, 6, 4, 5, 9, 24, 58, 92, 78, 65, 70, 62, 55, 60, 68, 72, 65, 55, 48, 40, 32, 22, 16];
+            const max = Math.max(...vols);
+            [['Mon', .8], ['Tue', 1.0], ['Wed', .9], ['Thu', .7]].forEach(([day, f]) => {
+                const row = document.createElement('div'); row.className = 'hmap-row';
+                const lbl = document.createElement('div'); lbl.className = 'hmap-lbl'; lbl.textContent = day; row.appendChild(lbl);
+                const grid = document.createElement('div'); grid.className = 'hmap-grid';
+                vols.forEach((v, h) => {
+                    const cell = document.createElement('div'); cell.className = 'hcell';
+                    const i = Math.min(1, (v * f) / max);
+                    cell.style.background = `rgba(39,174,96,${0.04 + i * 0.96})`;
+                    cell.title = `${day} ${h}:00 · ~${Math.round(v * f)} txns`;
+                    grid.appendChild(cell);
+                });
+                row.appendChild(grid); wrap.appendChild(row);
+            });
+            const lr = document.createElement('div'); lr.className = 'hmap-row';
+            const sp = document.createElement('div'); sp.style.width = '26px'; lr.appendChild(sp);
+            const lg = document.createElement('div'); lg.className = 'hmap-grid';
+            vols.forEach((_, h) => { const l = document.createElement('div'); l.style.cssText = 'font-size:7px;color:var(--t4);text-align:center'; l.textContent = h % 6 === 0 ? h + 'h' : ''; lg.appendChild(l); });
+            lr.appendChild(lg); wrap.appendChild(lr);
+        })();
+
+        /* Page switch */
+        function go(id, el) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+            document.querySelectorAll('.nav-item').forEach(n => {
+                if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) n.classList.add('on');
+                else n.classList.remove('on');
+            });
+            document.getElementById('page-' + id).classList.add('on');
+            if (el && el.classList.contains('tab')) el.classList.add('on');
+        }
+
+        /* Speedo */
+        function drawSpeedo(id, val, min, max, a, r) {
+            const canvas = document.getElementById(id); if (!canvas) return;
+            const dpr = window.devicePixelRatio || 1;
+            const W = canvas.offsetWidth || 150, H = Math.round(W * .62);
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+            const ctx = canvas.getContext('2d'); ctx.scale(dpr, dpr);
+            const cx = W / 2, cy = H * .9, R = W * .39, SW = W * .08;
+            const sA = Math.PI * .75, sw = Math.PI * 1.5;
+            const pct = Math.min(1, Math.max(0, (val - min) / (max - min)));
+            ctx.beginPath(); ctx.arc(cx, cy, R, sA, sA + sw);
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = SW; ctx.lineCap = 'round'; ctx.stroke();
+            const col = pct >= r ? '#E05C6E' : pct >= a ? '#E8A030' : '#2ECC8E';
+            if (pct > 0) { ctx.beginPath(); ctx.arc(cx, cy, R, sA, sA + pct * sw); ctx.strokeStyle = col; ctx.lineWidth = SW; ctx.lineCap = 'round'; ctx.stroke(); }
+            for (let t = 0; t <= 10; t++) {
+                const ta = sA + (t / 10) * sw, big = t % 5 === 0, inn = big ? R - SW * .85 : R - SW * .5, out = R + SW * .18;
+                ctx.beginPath(); ctx.moveTo(cx + out * Math.cos(ta), cy + out * Math.sin(ta)); ctx.lineTo(cx + inn * Math.cos(ta), cy + inn * Math.sin(ta));
+                ctx.strokeStyle = big ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1; ctx.lineCap = 'butt'; ctx.stroke();
+            }
+            const na = sA + pct * sw, nL = R - SW * .6, nB = SW * .2;
+            ctx.beginPath(); ctx.moveTo(cx - nB * Math.cos(na), cy - nB * Math.sin(na)); ctx.lineTo(cx + nL * Math.cos(na), cy + nL * Math.sin(na));
+            ctx.strokeStyle = col; ctx.lineWidth = 1.8; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, SW * .32, 0, Math.PI * 2); ctx.fillStyle = col; ctx.fill();
+            ctx.beginPath(); ctx.arc(cx, cy, SW * .13, 0, Math.PI * 2); ctx.fillStyle = '#0B0917'; ctx.fill();
+        }
+        window.addEventListener('load', () => {
+            drawSpeedo('g1', 94.2, 0, 150, .60, .87); drawSpeedo('g2', 38.6, 0, 75, .60, .87);
+            drawSpeedo('g3', 22.4, 0, 120, .33, .58); drawSpeedo('g4', 68, 0, 100, .60, .85);
+        });
+
+        /* Charts */
+        Chart.defaults.color = 'rgba(138,128,176,0.55)';
+        Chart.defaults.borderColor = 'rgba(123,111,212,0.1)';
+        Chart.defaults.font.family = "'Poppins',sans-serif";
+        Chart.defaults.font.size = 9;
+        const TT = { backgroundColor: 'rgba(11,9,23,0.96)', borderColor: 'rgba(123,111,212,0.2)', borderWidth: 1, titleColor: '#E8E4FF', bodyColor: '#8680B0', padding: 10, cornerRadius: 8 };
+
+        (function () {
+            const L = Array.from({ length: 24 }, (_, i) => i % 6 === 0 ? (i < 10 ? '0' + i : i) + ':00' : '');
+            const inb = [8, 7, 6, 5, 5, 6, 9, 12, 18, 22, 28, 26, 24, 22, 25, 27, 32, 38, 41, 38, 32, 28, 24, 18];
+            const out = [5, 4, 4, 3, 3, 4, 6, 8, 12, 15, 18, 17, 16, 15, 17, 18, 22, 26, 28, 26, 22, 19, 16, 12];
+            window._tc = new Chart(document.getElementById('tchart'), {
+                type: 'line', data: {
+                    labels: L, datasets: [
+                        { data: new Array(24).fill(50), borderColor: 'rgba(46,204,142,0.2)', borderDash: [4, 4], borderWidth: 1, fill: false, pointRadius: 0, tension: 0 },
+                        { data: inb, borderColor: 'rgba(123,111,212,0.8)', backgroundColor: 'rgba(123,111,212,0.07)', fill: true, borderWidth: 1.5, pointRadius: 0, tension: .4 },
+                        { data: out, borderColor: 'rgba(123,111,212,0.3)', backgroundColor: 'rgba(123,111,212,0.03)', fill: true, borderWidth: 1, pointRadius: 0, tension: .4 }
+                    ]
+                }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 400 }, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => v + 'G' }, min: 0, max: 60 } } }
+            });
+        })();
+
+        new Chart(document.getElementById('donut'), { type: 'doughnut', data: { labels: ['Home 10M', 'Biz 50M', 'Home 30M', 'Enterprise'], datasets: [{ data: [35, 30, 22, 13], backgroundColor: ['rgba(123,111,212,0.8)', 'rgba(45,34,138,0.8)', 'rgba(123,111,212,0.45)', 'rgba(123,111,212,0.18)'], borderWidth: 0, hoverOffset: 3 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false }, tooltip: { ...TT } } } });
+
+        (function () {
+            const z = ['Westlands', 'CBD', 'Kilimani', 'Karen', 'Kasarani', 'Embakasi', 'Ruaraka'], u = [65, 70, 58, 52, 88, 61, 44];
+            window._bw = new Chart(document.getElementById('bwchart'), { type: 'bar', data: { labels: z, datasets: [{ data: u, backgroundColor: u.map(v => v > 80 ? 'rgba(224,92,110,0.55)' : v > 65 ? 'rgba(232,160,48,0.55)' : 'rgba(123,111,212,0.55)'), borderRadius: 4, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 600 }, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.parsed.x + '% utilized' } } }, scales: { x: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { color: 'rgba(138,128,176,0.6)' } } } } });
+            window._bwBase = [...u];
+        })();
+
+        (function () {
+            const m = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+            new Chart(document.getElementById('revchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Residential', data: [28, 30, 31, 30, 33, 35, 36, 35, 37, 38, 37, 40], backgroundColor: 'rgba(123,111,212,0.7)', borderRadius: 3 }, { label: 'Business', data: [20, 21, 22, 21, 23, 24, 25, 23, 26, 27, 26, 28], backgroundColor: 'rgba(45,34,138,0.7)', borderRadius: 3 }, { label: 'Enterprise', data: [14, 15, 15, 16, 17, 17, 18, 16, 19, 20, 19, 21], backgroundColor: 'rgba(123,111,212,0.3)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { stacked: true, grid: { display: false }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { stacked: true, grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => 'KES ' + v + 'M' } } } } });
+        })();
+
+        (function () {
+            const m = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N'];
+            new Chart(document.getElementById('growthchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Net adds', data: [640, 720, 590, 810, 920, 700, 1010, 860, 790, 1080, 1210], backgroundColor: 'rgba(123,111,212,0.65)', borderRadius: 3 }, { label: 'Churn', data: [-80, -65, -95, -72, -58, -88, -63, -74, -80, -61, -52], backgroundColor: 'rgba(224,92,110,0.45)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { display: false }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)' } } } } });
+        })();
+
+        (function () {
+            const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const actual = [61, 65, 68, 72, 87, null, null, null, null, null, null, null];
+            const proj = [null, null, null, null, 87, 91, 95, 99, 103, 107, 110, 114];
+            new Chart(document.getElementById('mptrend'), { type: 'line', data: { labels: m, datasets: [{ label: 'Actual', data: actual, borderColor: 'var(--mpesa)', backgroundColor: 'rgba(39,174,96,0.08)', fill: true, borderWidth: 1.8, pointRadius: 3, pointBackgroundColor: 'var(--mpesa)', tension: .4 }, { label: 'Projection', data: proj, borderColor: 'rgba(39,174,96,0.4)', borderDash: [5, 4], backgroundColor: 'rgba(39,174,96,0.03)', fill: true, borderWidth: 1.2, pointRadius: 2, pointBackgroundColor: 'rgba(39,174,96,0.4)', tension: .4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, filter: i => i.parsed.y !== null } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => 'KES ' + v + 'M' }, min: 50, max: 125 } } } });
+        })();
+
+        (function () {
+            const z = ['Westlands', 'CBD', 'Kilimani', 'Karen', 'Kasarani', 'Embakasi', 'Ruaraka'];
+            const col = [26.8, 20.2, 15.4, 13.5, 6.1, 3.8, 1.6], pot = [28, 22, 17, 14, 14.5, 10, 4.2];
+            new Chart(document.getElementById('zonechart'), { type: 'bar', data: { labels: z, datasets: [{ label: 'Collected', data: col, backgroundColor: 'rgba(39,174,96,0.6)', borderRadius: 3, borderSkipped: false }, { label: 'Potential', data: pot, backgroundColor: 'rgba(123,111,212,0.2)', borderRadius: 3, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.dataset.label + ': KES ' + c.parsed.x + 'M' } } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => 'KES ' + v + 'M' } }, y: { grid: { display: false }, ticks: { color: 'rgba(138,128,176,0.6)' } } } } });
+        })();
+
+        /* Live engine */
+        const BASE = { dl: 94.2, ul: 38.6, lat: 22.4, bw: 68, tput: 24.7, cr: 96.8, subs: 28416 };
+        function jit(v, r, d = 1) { return parseFloat((v + (Math.random() - .5) * r * 2).toFixed(d)); }
+        function animNum(el, to, dec = 0, dur = 700) {
+            if (!el) return;
+            const from = parseFloat(el.dataset.val || to) || to; el.dataset.val = to;
+            const step = (to - from) / (dur / 16); let cur = from;
+            const run = () => { cur += step; const done = step > 0 ? cur >= to : cur <= to; const v = done ? to : cur; el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString(); if (!done) requestAnimationFrame(run); }; requestAnimationFrame(run);
+        }
+        function flash(id) { const d = document.getElementById(id); if (!d) return; d.classList.add('show'); setTimeout(() => d.classList.remove('show'), 700); }
+
+        function liveUpdate() {
+            const d = { dl: jit(BASE.dl, 4), ul: jit(BASE.ul, 2), lat: jit(BASE.lat, 3), bw: jit(BASE.bw, 2, 0), tput: jit(BASE.tput, .8, 1) };
+            drawSpeedo('g1', d.dl, 0, 150, .60, .87); drawSpeedo('g2', d.ul, 0, 75, .60, .87);
+            drawSpeedo('g3', d.lat, 0, 120, .33, .58); drawSpeedo('g4', d.bw, 0, 100, .60, .85);
+            document.querySelectorAll('[id^="sv"]').forEach((el, i) => {
+                const v = [d.dl, d.ul, d.lat, d.bw][i]; if (v !== undefined) { el.dataset.val = el.dataset.val || v; animNum(el, v, [1, 1, 1, 0][i]); }
+            });
+            if (window._tc) { [1, 2].forEach(i => { const arr = window._tc.data.datasets[i].data; arr.push(jit(arr[arr.length - 1] || 18, [6, 4][i - 1], 0)); arr.shift(); }); window._tc.update('none'); }
+            ['ud1', 'ud2', 'ud3'].forEach(flash);
+        }
+        function updateBW() {
+            if (!window._bw) return;
+            const nv = window._bwBase.map(v => Math.min(99, Math.max(20, jit(v, 4, 0))));
+            window._bw.data.datasets[0].data = nv;
+            window._bw.data.datasets[0].backgroundColor = nv.map(v => v > 80 ? 'rgba(224,92,110,0.55)' : v > 65 ? 'rgba(232,160,48,0.55)' : 'rgba(123,111,212,0.55)');
+            window._bw.update();
+        }
+        function pulseCollect() {
+            const rate = jit(BASE.cr, .3, 1);
+            const el = document.getElementById('collect-rate'); if (!el) return;
+            el.style.transition = 'color .35s'; el.textContent = rate + '%';
+            el.style.color = rate >= 96 ? 'var(--green)' : 'var(--amber)';
+        }
+        let _subs = BASE.subs;
+        function tickSubs() { if (Math.random() < .08) { _subs++; const el = document.getElementById('kv-subs'); if (el) animNum(el, _subs); } }
+
+        const _Z = ['Westlands', 'CBD', 'Kilimani', 'Karen', 'Kasarani', 'Embakasi', 'Ruaraka', 'Mathare'];
+        const _P = [['Home 10Mbps', 1800], ['Home 30Mbps', 3200], ['Business 50Mbps', 5500], ['Enterprise', 12000]];
+        const _S = [['ok', 'Paid'], ['ok', 'Paid'], ['ok', 'Paid'], ['w', 'Retry'], ['r', 'Failed']];
+        function mpRef() { return 'NHK' + Math.random().toString(36).substr(2, 8).toUpperCase(); }
+        function streamTxn() {
+            const feed = document.getElementById('txnfeed'); if (!feed) return;
+            const pl = _P[Math.floor(Math.random() * 4)];
+            const [sc, sl] = _S[Math.floor(Math.random() * 5)];
+            const zone = _Z[Math.floor(Math.random() * _Z.length)];
+            const t = new Date(Date.now() + 3 * 3600000).toISOString().substr(11, 5);
+            const id = '#SUB-' + String(Math.floor(10000 + Math.random() * 89999));
+            const ref = sc === 'ok' ? mpRef() : '—';
+            const row = document.createElement('div'); row.className = 'txn-row';
+            row.style.cssText = 'opacity:0;transform:translateY(-5px);transition:opacity .4s,transform .4s';
+            row.innerHTML = `<div class="tx-id">${id}</div><div class="tx-zone">${zone}</div><div class="tx-plan">${pl[0]}</div><div class="tx-amt">KES ${pl[1].toLocaleString()}</div><div class="tx-ref" style="${sc !== 'ok' ? 'color:var(--t4)' : ''}">${ref}</div><div class="tx-t">${t}</div><div class="tx-s"><span class="mpill ${sc}">${sl}</span></div>`;
+            feed.prepend(row);
+            requestAnimationFrame(() => { row.style.opacity = '1'; row.style.transform = 'none'; });
+            const rows = feed.querySelectorAll('.txn-row');
+            if (rows.length > 8) { const old = rows[rows.length - 1]; old.style.opacity = '0'; setTimeout(() => old.remove(), 400); }
+        }
+
+        setTimeout(() => { liveUpdate(); streamTxn(); }, 600);
+        setInterval(liveUpdate, 3000);
+        setInterval(streamTxn, 5500);
+        setInterval(updateBW, 9000);
+        setInterval(() => { tickSubs(); pulseCollect(); }, 13000);
+    </script>
+</body>
+
+</html>
