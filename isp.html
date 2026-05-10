@@ -22,8 +22,8 @@
             --sidebar: #08120D;
             --card: rgba(13, 26, 19, 0.6);
             --card-h: rgba(20, 44, 33, 0.8);
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-h: rgba(255, 255, 255, 0.05);
+            --glass: var(--glass);
+            --glass-h: var(--glass-h);
 
             /* Primary Accent (Golden Cyber) */
             --p: #F5A623;
@@ -50,6 +50,7 @@
 
             /* Effects */
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 12px 48px rgba(0, 0, 0, 0.6);
             --blur: blur(12px);
             --r: 12px;
             --r-lg: 24px;
@@ -70,12 +71,24 @@
             --p-dim: rgba(212, 136, 6, 0.05);
             --p-line: rgba(212, 136, 6, 0.1);
 
+            --green: #008A56;
+            --green-glow: rgba(0, 138, 86, 0.2);
+            --green-d: rgba(0, 138, 86, 0.1);
+            
+            --amber: #C97200;
+            --amber-d: rgba(201, 114, 0, 0.1);
+            
+            --red: #D32F2F;
+            --red-glow: rgba(211, 47, 47, 0.2);
+            --red-d: rgba(211, 47, 47, 0.1);
+
             --t1: #0A120E;
             --t2: #3A4540;
             --t3: #6A7871;
             --t4: #9AABA3;
 
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
         html,
@@ -430,6 +443,51 @@
             display: block;
         }
 
+        .view-container {
+            display: none;
+        }
+
+        .view-container.on {
+            display: block;
+            animation: pgIn .18s ease;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: var(--glass);
+            border-radius: 10px;
+            border: 1px solid var(--p-line);
+        }
+
+        .vt-btn {
+            background: transparent;
+            color: var(--t4);
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vt-btn:hover {
+            color: var(--t2);
+            background: var(--glass-h);
+        }
+
+        .vt-btn.on {
+            background: var(--p-dim);
+            color: var(--p);
+        }
+
+        /* Custom Dropdown UI */
+        .custom-dropdown.open .cd-options { display: flex !important; animation: pgIn .15s ease; }
+        .custom-dropdown.open .cd-arrow { transform: rotate(180deg); color: var(--t2) !important; }
+
         @keyframes pgIn {
             from {
                 opacity: 0;
@@ -481,7 +539,7 @@
         }
 
         .card:hover {
-            box-shadow: var(--shadow-h);
+            box-shadow: var(--shadow-hover);
         }
 
         .cp {
@@ -643,7 +701,7 @@
         }
 
         .metric-tile.m-p .metric-num {
-            color: #fff;
+            color: var(--t1);
         }
 
         .metric-tile.m-g .metric-num {
@@ -660,11 +718,11 @@
         }
 
         .metric-tile.m-p .metric-lbl {
-            color: rgba(255, 255, 255, 0.6);
+            color: var(--t2);
         }
 
         .metric-tile.m-g .metric-lbl {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--t2);
         }
 
         .metric-tile.m-d .metric-lbl {
@@ -675,15 +733,15 @@
             font-size: 9px;
             margin-top: 10px;
             padding-top: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid var(--p-line);
         }
 
         .metric-tile.m-p .metric-sub {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--t3);
         }
 
         .metric-tile.m-g .metric-sub {
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--t3);
         }
 
         .metric-tile.m-d .metric-sub {
@@ -904,7 +962,7 @@
 
         .tbl td {
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass);
             font-size: 11px;
             color: var(--t1);
             vertical-align: middle;
@@ -1221,7 +1279,7 @@
             align-items: center;
             gap: 10px;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass);
         }
 
         .risk-row:last-child {
@@ -1280,7 +1338,7 @@
             align-items: center;
             gap: 10px;
             padding: 7px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass);
             transition: background .15s;
             border-radius: 6px;
         }
@@ -1454,7 +1512,7 @@
         }
 
         .rw-body {
-            background: rgba(255,255,255,0.03);
+            background: var(--glass);
             border: 1px solid var(--p-line);
             border-radius: 16px;
             padding: 12px 14px;
@@ -1465,7 +1523,7 @@
         .rw-top {
             font-size: 8px;
             color: var(--t4);
-            text-transform: uppercase;
+            
             letter-spacing: 0.05em;
             margin-bottom: 4px;
         }
@@ -1497,7 +1555,7 @@
             border-radius: 12px;
             border-left: 3px solid;
             font-size: 11px;
-            background: rgba(255,255,255,0.02);
+            background: var(--glass);
         }
 
         .alert.w { border-left-color: var(--amber); background: var(--amber-d); }
@@ -1545,7 +1603,7 @@
             padding: 3px 10px;
             border-radius: 20px;
             margin-bottom: 12px;
-            text-transform: uppercase;
+            
         }
 
         .metric-num { font-size: 32px; font-weight: 700; letter-spacing: -0.04em; }
@@ -1565,7 +1623,7 @@
 
         .ib { background: var(--card); padding: 16px; transition: background 0.2s; }
         .ib:hover { background: var(--card-h); }
-        .ib-l { font-size: 10px; font-weight: 600; color: var(--t4); text-transform: uppercase; margin-bottom: 6px; }
+        .ib-l { font-size: 10px; font-weight: 600; color: var(--t4);  margin-bottom: 6px; }
         .ib-v { font-size: 18px; font-weight: 700; color: var(--t1); }
         .ib-s { font-size: 9px; color: var(--t3); margin-top: 4px; }
 
@@ -1582,13 +1640,13 @@
 
         .glass-card:hover {
             border-color: var(--p-glow);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--shadow-hover);
             transform: translateY(-2px);
         }
 
         .floating-row {
             display: grid;
-            background: var(--glass);
+            background: var(--card);
             border: 1px solid var(--p-line);
             border-radius: 16px;
             padding: 16px 20px;
@@ -1601,13 +1659,13 @@
         .floating-row:hover {
             background: var(--glass-h);
             border-color: var(--p-glow);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow);
             transform: scale(1.005);
         }
 
         .neo-input {
             width: 100%;
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--glass);
             border: 1px solid var(--p-line);
             border-radius: 12px;
             padding: 14px 18px;
@@ -1621,7 +1679,7 @@
         .neo-input:focus {
             border-color: var(--p);
             box-shadow: 0 0 0 4px var(--p-dim);
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--glass-h);
         }
 
         .stat-badge {
@@ -1632,13 +1690,208 @@
             border-radius: 20px;
             font-size: 10px;
             font-weight: 700;
-            text-transform: uppercase;
+            
             letter-spacing: 0.05em;
         }
 
         .stat-badge.active { background: var(--green-d); color: var(--green); border: 1px solid var(--green-glow); }
         .stat-badge.warning { background: var(--amber-d); color: var(--amber); border: 1px solid var(--p-line); }
         .stat-badge.critical { background: var(--red-d); color: var(--red); border: 1px solid var(--red-glow); }
+
+        /* ── Modal (Onboarding) ── */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--sidebar);
+            border: 1px solid var(--p-line);
+            border-radius: 24px;
+            width: 580px;
+            max-width: 95%;
+            box-shadow: var(--shadow-hover);
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--p-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 32px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 20px 32px;
+            border-top: 1px solid var(--p-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass);
+        }
+
+        /* Steps */
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 32px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .step-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            border: 1px solid var(--p-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--t4);
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-line {
+            width: 44px;
+            height: 1px;
+            background: var(--p-line);
+            margin: 0 10px;
+            transition: all 0.4s;
+        }
+
+        .step-item.active .step-circle {
+            border-color: var(--p);
+            color: var(--p);
+            box-shadow: 0 0 15px var(--p-f);
+            background: var(--glass-h);
+        }
+
+        .step-item.completed .step-circle {
+            background: var(--p);
+            border-color: var(--p);
+            color: white;
+        }
+
+        .step-item.completed .step-line.active {
+            background: var(--p);
+        }
+
+        /* Success Celebration */
+        .onboard-success {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px 0;
+            animation: pgIn 0.5s ease;
+        }
+
+        .onboard-success.active {
+            display: flex;
+        }
+
+        .success-tick-wrapper {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .tick-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--p-dim);
+            border: 2px solid var(--p);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: tickScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .tick-icon {
+            color: var(--p);
+            transform: scale(0);
+            animation: tickIconIn 0.4s 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .confetti-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--p);
+            border-radius: 2px;
+            opacity: 0;
+        }
+
+        @keyframes tickScale {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes tickIconIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(720deg); opacity: 0; }
+        }
+
+        .onboard-step {
+            display: none;
+        }
+
+        .onboard-step.active {
+            display: block;
+            animation: fadeInModal 0.4s ease forwards;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .mono { font-family: var(--mono); letter-spacing: -0.02em; }
 
@@ -1651,7 +1904,7 @@
             content: '';
             position: absolute;
             top: 0; right: 0; bottom: 0; left: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            background: linear-gradient(90deg, transparent, var(--glass-h), transparent);
             transform: translateX(-100%);
             animation: shimmer 3s infinite;
         }
@@ -1678,11 +1931,11 @@
         .f-btn, button.f-btn {
             background:var(--p) !important; color:#fff !important; font-size:10px !important; font-weight:700 !important;
             padding:11px 22px !important; border-radius:9px !important; cursor:pointer !important; border:none !important;
-            text-transform:uppercase !important; letter-spacing:0.05em !important; box-shadow:0 4px 12px rgba(232,160,48,0.2) !important;
+             letter-spacing:0.05em !important; box-shadow:0 4px 12px rgba(232,160,48,0.2) !important;
         }
         .f-btn:hover { background:#f0a93b !important; transform:translateY(-1px); }
 
-        .badge-alt { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:9px; font-weight:700; text-transform:uppercase; }
+        .badge-alt { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:9px; font-weight:700;  }
         .badge-alt.on { background:var(--green-d); color:var(--green); }
         .badge-alt.off { background:var(--red-d); color:var(--red); }
     </style>
@@ -2177,11 +2430,11 @@
                         <p style="font-size:12px; color:var(--t3); margin-top:4px;">M-Pesa IPN receipts, STK Push requests, and manual logs.</p>
                     </div>
                     <div style="display:flex; gap:12px;">
-                        <button class="tab" style="padding:10px 16px; font-size:11px; border-radius:10px; display:flex; align-items:center; gap:8px;">
+                        <button class="tab" style="padding:6px 12px; font-size:10px; border-radius:10px; display:flex; align-items:center; gap:8px;">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                             EXPORT CSV
                         </button>
-                        <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-size:12px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px var(--p-glow);">+ NEW PAYMENT</button>
+                        <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px var(--p-glow);">+ New payment</button>
                     </div>
                 </div>
 
@@ -2197,7 +2450,7 @@
                     <div style="display:flex; gap:16px; align-items:center;">
                         <div style="flex:1; position:relative;">
                             <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--t4);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                            <input type="text" placeholder="Search TXN code, customer, or account..." style="width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--p-line); border-radius:10px; padding:10px 12px 10px 40px; color:var(--t1); font-size:13px; outline:none;">
+                            <input type="text" placeholder="Search TXN code, customer, or account..." style="width:100%; background:var(--glass-h); border:1px solid var(--p-line); border-radius:10px; padding:10px 12px 10px 40px; color:var(--t1); font-size:13px; outline:none;">
                         </div>
                         <select class="neo-input" style="width:auto; min-width:160px;">
                             <option>All Methods</option>
@@ -2220,7 +2473,7 @@
                 <div class="glass-card" style="padding:0; overflow:hidden;">
                     <table class="tbl">
                         <thead>
-                            <tr style="background:rgba(255,255,255,0.02);">
+                            <tr style="background:var(--glass);">
                                 <th style="padding:16px 24px;">TXN Code</th>
                                 <th>Customer</th>
                                 <th style="text-align:right;">Amount</th>
@@ -2233,7 +2486,7 @@
                         <tbody>
                             <tr>
                                 <td style="padding:16px 24px;">
-                                    <span class="mono" style="font-size:10px; background:rgba(255,255,255,0.05); color:var(--t1); padding:4px 8px; border-radius:6px; border:1px solid var(--p-line);">SIC7A2M9Q</span>
+                                    <span class="mono" style="font-size:10px; background:var(--glass-h); color:var(--t1); padding:4px 8px; border-radius:6px; border:1px solid var(--p-line);">SIC7A2M9Q</span>
                                 </td>
                                 <td>
                                     <div>
@@ -2259,175 +2512,369 @@
                 </div>
             </div><!-- /pay -->
 
-            <div class="page" id="page-all-users" style="padding:24px 32px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:32px;">
-                    <div>
-                        <h2 style="font-size:24px; font-weight:700; color:var(--t1); letter-spacing:-0.03em;">Subscriber base</h2>
-                        <p style="font-size:12px; color:var(--t3); margin-top:4px;">Unified customer directory and account lifecycle management.</p>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:16px;">
-                        <div class="glass-card" style="padding:4px; display:flex; gap:4px; border-radius:12px;">
-                            <button id="view-list" class="tab on" style="padding:8px 12px; border-radius:8px; font-size:11px;" onclick="setView('list')">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            <div class="page" id="page-all-users">
+                <!-- Header -->
+                <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:24px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <h2 style="font-size:18px; font-weight:500; color:var(--t1);">All Customers</h2>
+                            <p style="font-size:10px; color:var(--t3); margin-top:4px;">3 total subscribers</p>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:12px;">
+                            <button class="shimmer cp" style="background:var(--p); color:#fff; border:none; padding:8px 16px; border-radius:12px; font-size:11px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" onclick="openModal()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                Onboard Customer
                             </button>
-                            <button id="view-grid" class="tab" style="padding:8px 12px; border-radius:8px; font-size:11px;" onclick="setView('grid')">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding:0; display:flex; flex-direction:column; border-radius:16px; overflow:hidden;">
+                    <!-- Filter Strip -->
+                    <div style="padding:16px; border-bottom:1px solid var(--p-line); background:var(--glass); display:flex; gap:12px; align-items:center;">
+                        <div style="flex:1; position:relative; max-width:400px;">
+                            <svg style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--t4);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" class="neo-input" placeholder="Search by name, account ID, or phone..." style="width:100%; padding-left:40px; padding-top:10px; padding-bottom:10px; border:none; background:rgba(255,255,255,0.05); font-size:11px;">
+                        </div>
+                        <div class="custom-dropdown" style="position:relative; width:auto; min-width:140px; cursor:pointer;">
+                            <div class="cd-header neo-input cp" style="padding:10px 14px; border:none; background:rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; color:var(--t2); font-weight:500; font-size:11px;" onclick="toggleDropdown(this, event)">
+                                <span class="cd-val">All Statuses</span>
+                                <svg class="cd-arrow" style="color:var(--t4); transition:all 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="cd-options" style="position:absolute; top:calc(100% + 4px); left:0; width:100%; background:var(--card); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--p-line); border-radius:14px; padding:6px; z-index:100; display:none; flex-direction:column; gap:2px; box-shadow:0 12px 40px rgba(0,0,0,0.4);">
+                                <div class="cd-opt active" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t1); background:var(--glass-h);" onclick="selectOption(this, event)">All Statuses</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Active</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Suspended</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Pending</div>
+                            </div>
+                        </div>
+                        <div class="custom-dropdown" style="position:relative; width:auto; min-width:140px; cursor:pointer;">
+                            <div class="cd-header neo-input cp" style="padding:10px 14px; border:none; background:rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; color:var(--t2); font-weight:500; font-size:11px;" onclick="toggleDropdown(this, event)">
+                                <span class="cd-val">All Routers</span>
+                                <svg class="cd-arrow" style="color:var(--t4); transition:all 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="cd-options" style="position:absolute; top:calc(100% + 4px); left:0; width:100%; background:var(--card); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--p-line); border-radius:14px; padding:6px; z-index:100; display:none; flex-direction:column; gap:2px; box-shadow:0 12px 40px rgba(0,0,0,0.4);">
+                                <div class="cd-opt active" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t1); background:var(--glass-h);" onclick="selectOption(this, event)">All Routers</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">MikroTik CCR1</div>
+                            </div>
+                        </div>
+                        <div class="custom-dropdown" style="position:relative; width:auto; min-width:140px; cursor:pointer;">
+                            <div class="cd-header neo-input cp" style="padding:10px 14px; border:none; background:rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:center; color:var(--t2); font-weight:500; font-size:11px;" onclick="toggleDropdown(this, event)">
+                                <span class="cd-val">All Packages</span>
+                                <svg class="cd-arrow" style="color:var(--t4); transition:all 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="cd-options" style="position:absolute; top:calc(100% + 4px); left:0; width:100%; background:var(--card); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid var(--p-line); border-radius:14px; padding:6px; z-index:100; display:none; flex-direction:column; gap:2px; box-shadow:0 12px 40px rgba(0,0,0,0.4);">
+                                <div class="cd-opt active" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t1); background:var(--glass-h);" onclick="selectOption(this, event)">All Packages</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Home Basic 10M</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Home Pro 30M</div>
+                                <div class="cd-opt" style="padding:10px 14px; border-radius:8px; font-size:11px; font-weight:500; color:var(--t3); transition:all 0.2s;" onmouseover="if(!this.classList.contains('active')) {this.style.color='var(--t1)'; this.style.background='var(--glass)'}" onmouseout="if(!this.classList.contains('active')) {this.style.color='var(--t3)'; this.style.background='transparent'}" onclick="selectOption(this, event)">Biz Elite 50M</div>
+                            </div>
+                        </div>
+                        <div style="width:1px; height:24px; background:var(--p-line);"></div>
+                        <div class="view-toggle" style="background:rgba(255,255,255,0.05); padding:4px; border-radius:12px; border:1px solid rgba(255,255,255,0.05); display:flex; align-items:center;">
+                            <button id="view-list" class="vt-btn on" onclick="setView('list')" style="padding:8px; border-radius:8px; border:none; cursor:pointer; display:flex; transition:all 0.2s;" title="List View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                            </button>
+                            <button id="view-grid" class="vt-btn" onclick="setView('grid')" style="padding:8px; border-radius:8px; border:none; cursor:pointer; display:flex; transition:all 0.2s; background:transparent; color:var(--t3);" title="Grid View">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
                             </button>
                         </div>
-                        <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-size:12px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px var(--p-glow);">+ ONBOARD CUSTOMER</button>
                     </div>
-                </div>
 
-                <!-- Mini Metric Strip -->
-                <div class="grid mb" style="grid-template-columns: repeat(3, 1fr); gap:16px; margin-bottom:24px;">
-                    <div class="glass-card" style="padding:16px; display:flex; align-items:center; gap:16px;">
-                        <div style="width:40px; height:40px; border-radius:12px; background:var(--p-dim); display:flex; align-items:center; justify-content:center; color:var(--p);">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                        </div>
-                        <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Total Base</div>
-                            <div style="font-size:20px; font-weight:700; color:var(--t1);">28,416</div>
-                        </div>
-                    </div>
-                    <div class="glass-card" style="padding:16px; display:flex; align-items:center; gap:16px;">
-                        <div style="width:40px; height:40px; border-radius:12px; background:rgba(39,174,96,0.1); display:flex; align-items:center; justify-content:center; color:var(--green);">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                        </div>
-                        <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">New (30d)</div>
-                            <div style="font-size:20px; font-weight:700; color:var(--t1);">+1,248</div>
-                        </div>
-                    </div>
-                    <div class="glass-card" style="padding:16px; display:flex; align-items:center; gap:16px;">
-                        <div style="width:40px; height:40px; border-radius:12px; background:rgba(232,160,48,0.1); display:flex; align-items:center; justify-content:center; color:var(--amber);">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                        </div>
-                        <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Avg ARPU</div>
-                            <div style="font-size:20px; font-weight:700; color:var(--t1);">KES 3,075</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Filter Strip -->
-                <div class="glass-card" style="padding:16px; margin-bottom:24px; display:flex; gap:16px; align-items:center;">
-                    <div style="flex:1; position:relative;">
-                        <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--t4);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        <input type="text" placeholder="Search by name, account ID, or phone..." style="width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--p-line); border-radius:10px; padding:10px 12px 10px 40px; color:var(--t1); font-size:13px; outline:none;">
-                    </div>
-                    <select class="neo-input" style="width:auto; min-width:140px;">
-                        <option>All Statuses</option>
-                        <option>Active</option>
-                        <option>Suspended</option>
-                        <option>Pending</option>
-                    </select>
-                    <select class="neo-input" style="width:auto; min-width:160px;">
-                        <option>All Routers</option>
-                        <option>Westlands POP 01</option>
-                        <option>Karen Gateway</option>
-                    </select>
-                    <select class="neo-input" style="width:auto; min-width:160px;">
-                        <option>All Packages</option>
-                        <option>Home Pro 30M</option>
-                        <option>Biz Elite 50M</option>
-                    </select>
-                </div>
-
-                <!-- LIST VIEW -->
-                <div id="subs-list-view" class="view-container on">
-                    <div class="glass-card" style="padding:0; overflow:hidden;">
-                        <table class="tbl">
+                    <!-- LIST VIEW -->
+                    <div id="subs-list-view" class="view-container on" style="width:100%;">
+                        <table style="width:100%; border-collapse:collapse; text-align:left; white-space:nowrap;">
                             <thead>
-                                <tr style="background:rgba(255,255,255,0.02);">
-                                    <th style="padding:16px 24px;">Subscriber</th>
-                                    <th>Contact</th>
-                                    <th>Package</th>
-                                    <th style="text-align:center;">Status</th>
-                                    <th style="text-align:center;">Online</th>
-                                    <th style="text-align:right;">Balance</th>
-                                    <th style="padding-right:24px; text-align:right;">Actions</th>
+                                <tr style="background:var(--glass); border-bottom:1px solid var(--p-line);">
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; width:40px;">#</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em;">Customer</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em;">Contact</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em;">Package</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; text-align:center;">Status</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; text-align:center;">Online</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; text-align:right;">Balance</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em;">Next Bill</th>
+                                    <th style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; text-align:right;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="padding:16px 24px;">
+                                <!-- Row 1 -->
+                                <tr style="border-bottom:1px solid var(--p-line); transition:background 0.2s;" onmouseover="this.style.background='var(--glass-h)'" onmouseout="this.style.background='transparent'">
+                                    <td style="padding:14px 20px; font-size:11px; font-weight:600; color:var(--t4);" class="mono">01</td>
+                                    <td style="padding:14px 20px;">
                                         <div style="display:flex; align-items:center; gap:12px;">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=meshack" style="width:32px; height:32px; border-radius:50%; background:var(--p-dim);">
+                                            <div style="width:32px; height:32px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); overflow:hidden; flex-shrink:0;">
+                                                <img src="https://api.dicebear.com/9.x/micah/svg?seed=meshack&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover;">
+                                            </div>
                                             <div>
-                                                <div style="font-size:13px; font-weight:600; color:var(--t1);">Meshack Kinyua</div>
-                                                <div class="mono" style="font-size:10px; color:var(--t4);">#ACC-9021</div>
+                                                <div style="font-size:10px; font-weight:500; color:var(--t1);">Meshack Kinyua</div>
+                                                <div class="mono" style="font-size:10px; color:var(--t4); margin-top:2px;">ACC-9021</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="font-size:12px; color:var(--t3);">+254 712 345 678</td>
-                                    <td><span style="font-size:11px; font-weight:500; background:var(--p-dim); color:var(--p); padding:2px 8px; border-radius:6px;">Home Pro 30M</span></td>
-                                    <td style="text-align:center;"><span class="stat-badge active">ACTIVE</span></td>
-                                    <td style="text-align:center;">
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">+254 712 345 678</td>
+                                    <td style="padding:14px 20px;">
+                                        <span style="font-size:10px; font-weight:500; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t3); padding:2px 8px; border-radius:4px;">Home Pro 30M</span>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:center;">
+                                        <span style="font-size:10px; font-weight:500; padding:4px 10px; border-radius:20px; background:var(--green-d); color:var(--green); border:1px solid var(--green-glow);">Active</span>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:center;">
                                         <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
-                                            <span style="font-size:10px; color:var(--green); display:flex; align-items:center; gap:4px;"><span class="live-d" style="width:6px; height:6px;"></span>Online</span>
-                                            <span class="mono" style="font-size:9px; color:var(--t4);">04:21:15</span>
+                                            <span style="font-size:10px; color:var(--green); display:flex; align-items:center; gap:4px;">
+                                                <span style="width:6px; height:6px; background:var(--green); border-radius:50%; animation: pulse 2s infinite;"></span>Online
+                                            </span>
+                                            <span class="mono" style="font-size:9px; color:var(--t4);">14d 02h</span>
                                         </div>
                                     </td>
-                                    <td style="text-align:right; font-weight:600; color:var(--t2);">KES 0.00</td>
-                                    <td style="padding-right:24px; text-align:right;">
-                                        <button class="tab" style="padding:6px; border-radius:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+                                    <td style="padding:14px 20px; text-align:right; font-size:10px; font-weight:500; color:var(--t3);">KES 0</td>
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">2026-06-12</td>
+                                    <td style="padding:14px 20px; text-align:right;">
+                                        <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+                                            <button style="position:relative; width:36px; height:20px; border-radius:20px; border:none; background:var(--green); cursor:pointer;" title="Click to suspend">
+                                                <span style="position:absolute; left:18px; top:2px; width:16px; height:16px; background:#fff; border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,0.3); transition:all 0.3s;"></span>
+                                            </button>
+                                            <button class="cp" style="width:32px; height:32px; border-radius:8px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t1); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t1)';">
+                                                <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="padding:16px 24px;">
+
+                                <!-- Row 2 -->
+                                <tr style="border-bottom:1px solid var(--p-line); transition:background 0.2s;" onmouseover="this.style.background='var(--glass-h)'" onmouseout="this.style.background='transparent'">
+                                    <td style="padding:14px 20px; font-size:11px; font-weight:600; color:var(--t4);" class="mono">02</td>
+                                    <td style="padding:14px 20px;">
                                         <div style="display:flex; align-items:center; gap:12px;">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=sarah" style="width:32px; height:32px; border-radius:50%; background:var(--p-dim);">
+                                            <div style="width:32px; height:32px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); overflow:hidden; flex-shrink:0;">
+                                                <img src="https://api.dicebear.com/9.x/micah/svg?seed=sarah&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover;">
+                                            </div>
                                             <div>
-                                                <div style="font-size:13px; font-weight:600; color:var(--t1);">Sarah Wambui</div>
-                                                <div class="mono" style="font-size:10px; color:var(--t4);">#ACC-8842</div>
+                                                <div style="font-size:10px; font-weight:500; color:var(--t1);">Sarah Wambui</div>
+                                                <div class="mono" style="font-size:10px; color:var(--t4); margin-top:2px;">ACC-8842</div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td style="font-size:12px; color:var(--t3);">+254 722 000 111</td>
-                                    <td><span style="font-size:11px; font-weight:500; background:rgba(255,255,255,0.05); color:var(--t3); padding:2px 8px; border-radius:6px;">Biz Elite 50M</span></td>
-                                    <td style="text-align:center;"><span class="stat-badge expired" style="background:var(--red-d); color:var(--red);">SUSPENDED</span></td>
-                                    <td style="text-align:center;">
-                                        <span style="font-size:10px; color:var(--t4); display:flex; align-items:center; justify-content:center; gap:4px;"><span style="width:6px; height:6px; background:var(--t4); border-radius:50%;"></span>Offline</span>
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">+254 722 000 111</td>
+                                    <td style="padding:14px 20px;">
+                                        <span style="font-size:10px; font-weight:500; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t3); padding:2px 8px; border-radius:4px;">Biz Elite 50M</span>
                                     </td>
-                                    <td style="text-align:right; font-weight:600; color:var(--red);">KES 5,500.00</td>
-                                    <td style="padding-right:24px; text-align:right;">
-                                        <button class="tab" style="padding:6px; border-radius:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg></button>
+                                    <td style="padding:14px 20px; text-align:center;">
+                                        <span style="font-size:10px; font-weight:500; padding:4px 10px; border-radius:20px; background:var(--red-d); color:var(--red); border:1px solid var(--red-glow);">Suspended</span>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:center;">
+                                        <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+                                            <span style="width:6px; height:6px; background:rgba(255,255,255,0.1); border-radius:50%;"></span>
+                                            <span style="font-size:10px; color:var(--t3);">Offline</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:right; font-size:10px; font-weight:500; color:var(--red);">KES 5,500</td>
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">2026-05-01</td>
+                                    <td style="padding:14px 20px; text-align:right;">
+                                        <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+                                            <button style="position:relative; width:36px; height:20px; border-radius:20px; border:none; background:var(--glass-h); border:1px solid var(--p-line); cursor:pointer;" title="Click to reconnect">
+                                                <span style="position:absolute; left:2px; top:2px; width:16px; height:16px; background:var(--t3); border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,0.3); transition:all 0.3s;"></span>
+                                            </button>
+                                            <button class="cp" style="width:32px; height:32px; border-radius:8px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t1); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t1)';">
+                                                <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr style="border-bottom:1px solid var(--p-line); transition:background 0.2s;" onmouseover="this.style.background='var(--glass-h)'" onmouseout="this.style.background='transparent'">
+                                    <td style="padding:14px 20px; font-size:11px; font-weight:600; color:var(--t4);" class="mono">03</td>
+                                    <td style="padding:14px 20px;">
+                                        <div style="display:flex; align-items:center; gap:12px;">
+                                            <div style="width:32px; height:32px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); overflow:hidden; flex-shrink:0;">
+                                                <img src="https://api.dicebear.com/9.x/micah/svg?seed=david&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover;">
+                                            </div>
+                                            <div>
+                                                <div style="font-size:10px; font-weight:500; color:var(--t1);">David Ochieng</div>
+                                                <div class="mono" style="font-size:10px; color:var(--t4); margin-top:2px;">ACC-9105</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">+254 733 444 555</td>
+                                    <td style="padding:14px 20px;">
+                                        <span style="font-size:10px; font-weight:500; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t3); padding:2px 8px; border-radius:4px;">Home Basic 10M</span>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:center;">
+                                        <span style="font-size:10px; font-weight:500; padding:4px 10px; border-radius:20px; background:var(--amber-d); color:var(--amber); border:1px solid var(--p-glow);">Pending</span>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:center;">
+                                        <div style="display:flex; flex-direction:column; align-items:center; gap:2px;">
+                                            <span style="font-size:10px; color:var(--green); display:flex; align-items:center; gap:4px;">
+                                                <span style="width:6px; height:6px; background:var(--green); border-radius:50%; animation: pulse 2s infinite;"></span>Online
+                                            </span>
+                                            <span class="mono" style="font-size:9px; color:var(--t4);">04h 12m</span>
+                                        </div>
+                                    </td>
+                                    <td style="padding:14px 20px; text-align:right; font-size:10px; font-weight:500; color:var(--green);">KES 500 CR</td>
+                                    <td style="padding:14px 20px; font-size:10px; font-weight:500; color:var(--t3);">2026-05-15</td>
+                                    <td style="padding:14px 20px; text-align:right;">
+                                        <div style="display:flex; align-items:center; justify-content:flex-end; gap:6px;">
+                                            <button style="position:relative; width:36px; height:20px; border-radius:20px; border:none; background:var(--glass-h); border:1px solid var(--p-line); cursor:pointer;" title="">
+                                                <span style="position:absolute; left:2px; top:2px; width:16px; height:16px; background:var(--t3); border-radius:50%; box-shadow:0 1px 3px rgba(0,0,0,0.3); transition:all 0.3s;"></span>
+                                            </button>
+                                            <button class="cp" style="width:32px; height:32px; border-radius:8px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t1); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t1)';">
+                                                <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
 
-                <!-- GRID VIEW -->
-                <div id="subs-grid-view" class="view-container">
-                    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
-                        <div class="glass-card" style="padding:24px; border-radius:24px; position:relative;">
-                            <div style="display:flex; justify-content:space-between; align-items:start; mb:16px;">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=meshack" style="width:48px; height:48px; border-radius:16px; background:var(--p-dim);">
-                                <span class="stat-badge active" style="font-size:9px;">ACTIVE</span>
-                            </div>
-                            <div style="margin-top:16px;">
-                                <h3 style="font-size:15px; font-weight:600; color:var(--t1);">Meshack Kinyua</h3>
-                                <p class="mono" style="font-size:10px; color:var(--t4); margin-top:2px;">#ACC-9021 · +254712345678</p>
-                            </div>
-                            <div style="margin-top:20px; display:flex; gap:8px;">
-                                <span style="font-size:10px; padding:4px 10px; background:var(--p-dim); color:var(--p); border-radius:20px; font-weight:600;">Home Pro 30M</span>
-                                <span style="font-size:10px; padding:4px 10px; background:rgba(39,174,96,0.1); color:var(--green); border-radius:20px; font-weight:600;">Online</span>
-                            </div>
-                            <div style="margin-top:24px; pt:16px; border-top:1px solid var(--p-line); display:flex; justify-content:space-between; align-items:center;">
-                                <div>
-                                    <div style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.1em;">Balance</div>
-                                    <div style="font-size:14px; font-weight:700; color:var(--t2);">KES 0.00</div>
-                                </div>
-                                <button class="tab" style="width:32px; height:32px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                    <!-- GRID VIEW -->
+                    <div id="subs-grid-view" class="view-container" style="padding:24px;">
+                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:20px;">
+                            
+                            <!-- Grid Card 1 -->
+                            <div class="glass-card" style="padding:24px; position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;">
+                                <button class="cp" style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:12px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t2); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t2)';">
+                                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
                                 </button>
+                                
+                                <div style="width:72px; height:72px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); padding:4px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,0.2); margin-bottom:16px;">
+                                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=meshack&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                </div>
+                                
+                                <div style="margin-bottom:16px; width:100%;">
+                                    <h3 style="font-weight:600; color:var(--t1); font-size:16px; margin:0 0 6px 0;">01 &bull; Meshack Kinyua</h3>
+                                    <p class="mono" style="font-size:11px; color:var(--t3); margin:0;">ACC-9021 • +254 712 345 678</p>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; width:100%;">
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--green-d); color:var(--green); border:1px solid var(--green-glow);">Active</span>
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--glass-h); color:var(--t2); border:1px solid var(--p-line);">Home Pro 30M</span>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="width:100%; margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                    <div style="text-align:center; border-right:1px solid var(--p-line);">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Balance</p>
+                                        <p style="font-size:14px; font-weight:600; color:var(--t2); margin:0;">KES 0</p>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Due Date</p>
+                                        <p style="font-size:12px; font-weight:500; color:var(--t1); margin:0; line-height:18px;">2026-06-12</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Grid Card 2 -->
+                            <div class="glass-card" style="padding:24px; position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;">
+                                <button class="cp" style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:12px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t2); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t2)';">
+                                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
+                                </button>
+                                
+                                <div style="width:72px; height:72px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); padding:4px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,0.2); margin-bottom:16px;">
+                                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=sarah&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                </div>
+                                
+                                <div style="margin-bottom:16px; width:100%;">
+                                    <h3 style="font-weight:600; color:var(--t1); font-size:16px; margin:0 0 6px 0;">02 &bull; Sarah Wambui</h3>
+                                    <p class="mono" style="font-size:11px; color:var(--t3); margin:0;">ACC-8842 • +254 722 000 111</p>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; width:100%;">
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--red-d); color:var(--red); border:1px solid var(--red-glow);">Suspended</span>
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--glass-h); color:var(--t2); border:1px solid var(--p-line);">Biz Elite 50M</span>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="width:100%; margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                    <div style="text-align:center; border-right:1px solid var(--p-line);">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Balance</p>
+                                        <p style="font-size:14px; font-weight:600; color:var(--red); margin:0;">KES 5,500</p>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Due Date</p>
+                                        <p style="font-size:12px; font-weight:500; color:var(--t1); margin:0; line-height:18px;">2026-05-01</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Grid Card 3 -->
+                            <div class="glass-card" style="padding:24px; position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;">
+                                <button class="cp" style="position:absolute; top:16px; right:16px; width:32px; height:32px; border-radius:12px; background:var(--glass-h); border:1px solid var(--p-line); color:var(--t2); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onmouseover="this.style.background='var(--glass)'; this.style.color='var(--t1)';" onmouseout="this.style.background='var(--glass-h)'; this.style.color='var(--t2)';">
+                                    <div style="display:flex; flex-direction:column; gap:3px; align-items:center;">
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                    <div style="width:3px; height:3px; border-radius:50%; background:currentColor;"></div>
+                                                </div>
+                                </button>
+                                
+                                <div style="width:72px; height:72px; border-radius:50%; background:var(--glass-h); border:1px solid var(--p-line); padding:4px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow:inset 0 2px 4px rgba(0,0,0,0.2); margin-bottom:16px;">
+                                    <img src="https://api.dicebear.com/9.x/micah/svg?seed=david&backgroundColor=transparent" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                </div>
+                                
+                                <div style="margin-bottom:16px; width:100%;">
+                                    <h3 style="font-weight:600; color:var(--t1); font-size:16px; margin:0 0 6px 0;">03 &bull; David Ochieng</h3>
+                                    <p class="mono" style="font-size:11px; color:var(--t3); margin:0;">ACC-9105 • +254 733 444 555</p>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-bottom:16px; width:100%;">
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--amber-d); color:var(--amber); border:1px solid var(--p-glow);">Pending</span>
+                                    <span style="font-size:10px; font-weight:500; padding:4px 12px; border-radius:12px; background:var(--glass-h); color:var(--t2); border:1px solid var(--p-line);">Home Basic 10M</span>
+                                </div>
+                                
+                                <!-- Elegant Divider -->
+                                <div style="width:100%; height:1px; background:var(--p-line); margin-bottom:16px;"></div>
+                                
+                                <div style="width:100%; margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                    <div style="text-align:center; border-right:1px solid var(--p-line);">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Balance</p>
+                                        <p style="font-size:14px; font-weight:600; color:var(--green); margin:0;">KES 500 CR</p>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <p style="font-size:9px; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin:0 0 6px 0;">Due Date</p>
+                                        <p style="font-size:12px; font-weight:500; color:var(--t1); margin:0; line-height:18px;">2026-05-15</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div><!-- /all-users -->
+            </div>
+<!-- /all-users -->
+
 
 
             <!-- Communication (Communication.tsx) -->
@@ -2445,18 +2892,18 @@
 
                 <!-- Comms Tabs -->
                 <div class="glass-card" style="padding:4px; display:inline-flex; gap:4px; border-radius:12px; margin-bottom:32px;">
-                    <button class="tab on" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">COMPOSE</button>
-                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">BROADCAST</button>
-                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">HISTORY</button>
-                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">TEMPLATE BUILDER</button>
+                    <button class="tab on" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">Compose</button>
+                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">Broadcast</button>
+                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">History</button>
+                    <button class="tab" style="padding:8px 20px; font-size:11px; font-weight:700; border-radius:8px;">Template builder</button>
                 </div>
 
                 <div style="display:grid; grid-template-columns:340px 1fr; gap:32px;">
                     <!-- Templates Sidebar -->
                     <div style="display:flex; flex-direction:column; gap:20px;">
                         <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <h3 style="font-size:11px; font-weight:700; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em;">Smart Templates</h3>
-                            <button style="background:transparent; border:none; color:var(--p); font-size:11px; font-weight:700; cursor:pointer;">+ NEW</button>
+                            <h3 style="font-size:11px; font-weight:700; color:var(--t4);  letter-spacing:0.05em;">Smart Templates</h3>
+                            <button style="background:transparent; border:none; color:var(--p); font-size:11px; font-weight:700; cursor:pointer;">+ New</button>
                         </div>
                         <div style="display:flex; flex-direction:column; gap:12px;">
                             <div class="glass-card cp" style="padding:20px; border-radius:20px; border:1px solid var(--p-line); background:linear-gradient(135deg, var(--p-dim) 0%, transparent 100%);">
@@ -2466,14 +2913,14 @@
                                 </div>
                                 <p style="font-size:11px; color:var(--t3); line-height:1.6;">Dear {name}, your subscription expires on {due_date}. Renew here to avoid suspension...</p>
                             </div>
-                            <div class="glass-card cp" style="padding:20px; border-radius:20px; background:rgba(255,255,255,0.02);">
+                            <div class="glass-card cp" style="padding:20px; border-radius:20px; background:var(--glass);">
                                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
                                     <div style="width:32px; height:32px; border-radius:8px; background:var(--red); display:flex; align-items:center; justify-content:center; color:#fff;">⛔</div>
                                     <span style="font-size:13px; font-weight:700; color:var(--t1);">Service Suspended</span>
                                 </div>
                                 <p style="font-size:11px; color:var(--t3); line-height:1.6;">Dear {name}, your account {account} has been suspended due to non-payment of KES {amount}...</p>
                             </div>
-                            <div class="glass-card cp" style="padding:20px; border-radius:20px; background:rgba(255,255,255,0.02);">
+                            <div class="glass-card cp" style="padding:20px; border-radius:20px; background:var(--glass);">
                                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
                                     <div style="width:32px; height:32px; border-radius:8px; background:var(--green); display:flex; align-items:center; justify-content:center; color:#fff;">👋</div>
                                     <span style="font-size:13px; font-weight:700; color:var(--t1);">Welcome Message</span>
@@ -2486,29 +2933,29 @@
                     <!-- Compose Area -->
                     <div class="glass-card" style="padding:32px; border-radius:24px;">
                         <!-- Channel Toggle -->
-                        <div style="display:flex; background:rgba(255,255,255,0.05); padding:4px; border-radius:12px; margin-bottom:24px;">
-                            <button style="flex:1; background:var(--p); color:#fff; border:none; padding:10px; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer;">SMS (Celcom)</button>
-                            <button style="flex:1; background:transparent; color:var(--t3); border:none; padding:10px; border-radius:8px; font-size:11px; font-weight:600; cursor:pointer;">WhatsApp Business</button>
+                        <div style="display:flex; background:var(--glass-h); padding:4px; border-radius:12px; margin-bottom:24px;">
+                            <button style="flex:1; background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-size:10px; font-weight:600; cursor:pointer;">SMS (Celcom)</button>
+                            <button style="flex:1; background:transparent; color:var(--t3); border:none; padding:6px 12px; border-radius:8px; font-size:10px; font-weight:600; cursor:pointer;">WhatsApp Business</button>
                         </div>
 
                         <div style="margin-bottom:20px;">
-                            <label style="display:block; font-size:10px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:8px;">Select Recipient</label>
+                            <label style="display:block; font-size:10px; font-weight:700; color:var(--t4);  margin-bottom:8px;">Select Recipient</label>
                             <div style="position:relative;">
                                 <svg style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--t4);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <input type="text" placeholder="Search customer by name or phone..." style="width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--p-line); border-radius:10px; padding:12px 12px 12px 40px; color:var(--t1); font-size:13px; outline:none;">
+                                <input type="text" placeholder="Search customer by name or phone..." style="width:100%; background:var(--glass-h); border:1px solid var(--p-line); border-radius:10px; padding:12px 12px 12px 40px; color:var(--t1); font-size:13px; outline:none;">
                             </div>
                         </div>
 
                         <div style="margin-bottom:24px;">
-                            <label style="display:block; font-size:10px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:8px;">Message Content</label>
-                            <textarea style="width:100%; background:rgba(255,255,255,0.05); border:1px solid var(--p-line); border-radius:12px; padding:16px; color:var(--t1); font-size:14px; outline:none; height:180px; resize:none; line-height:1.6;" placeholder="Type your message here..."></textarea>
+                            <label style="display:block; font-size:10px; font-weight:700; color:var(--t4);  margin-bottom:8px;">Message Content</label>
+                            <textarea style="width:100%; background:var(--glass-h); border:1px solid var(--p-line); border-radius:12px; padding:16px; color:var(--t1); font-size:14px; outline:none; height:180px; resize:none; line-height:1.6;" placeholder="Type your message here..."></textarea>
                             <div style="display:flex; justify-content:space-between; margin-top:12px;">
                                 <p style="font-size:10px; color:var(--t4);">Vars: {name}, {account}, {due_date}, {package}</p>
                                 <p style="font-size:10px; color:var(--t4); font-weight:600;">142 chars · 1 SMS Part</p>
                             </div>
                         </div>
 
-                        <button class="shimmer" style="width:100%; background:var(--p); color:#fff; border:none; padding:16px; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer;">SEND MESSAGE</button>
+                        <button class="shimmer" style="width:100%; background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer;">Send message</button>
                     </div>
                 </div>
             </div><!-- /comms -->
@@ -2522,7 +2969,7 @@
                         <p style="font-size:12px; color:var(--t3); margin-top:4px;">Monitor and manage core NAS gateways and backbone routing nodes.</p>
                     </div>
                     <div style="display:flex; gap:12px;">
-                        <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-size:12px; font-weight:700; cursor:pointer;">+ ADD GATEWAY</button>
+                        <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer;">+ Add gateway</button>
                     </div>
                 </div>
 
@@ -2543,27 +2990,27 @@
                                 <div style="margin-top:28px; display:flex; flex-direction:column; gap:20px;">
                                     <div>
                                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">CPU Utilization</div>
+                                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">CPU Utilization</div>
                                             <div style="font-size:11px; font-weight:700; color:var(--t2);">12.4%</div>
                                         </div>
-                                        <div style="height:4px; background:rgba(255,255,255,0.05); border-radius:2px; overflow:hidden;">
+                                        <div style="height:4px; background:var(--glass-h); border-radius:2px; overflow:hidden;">
                                             <div style="width:12.4%; height:100%; background:var(--p); box-shadow:0 0 8px var(--p-glow);"></div>
                                         </div>
                                     </div>
                                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
                                         <div>
-                                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Sessions</div>
+                                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">Sessions</div>
                                             <div style="font-size:18px; font-weight:700; color:var(--t1);">412</div>
                                         </div>
                                         <div>
-                                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Temperature</div>
+                                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">Temperature</div>
                                             <div style="font-size:18px; font-weight:700; color:var(--t1);">44°C</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="margin-top:28px; display:flex; gap:12px;">
-                                    <button class="tab" style="flex:1; padding:10px; font-size:10px; font-weight:700;">RESOURCES</button>
-                                    <button class="tab" style="flex:1; padding:10px; font-size:10px; font-weight:700;">LOGS</button>
+                                    <button class="tab" style="flex:1; padding:6px 12px; font-size:10px; font-weight:700;">Resources</button>
+                                    <button class="tab" style="flex:1; padding:6px 12px; font-size:10px; font-weight:700;">Logs</button>
                                 </div>
                             </div>
                         </div>
@@ -2571,22 +3018,22 @@
 
                     <div style="display:flex; flex-direction:column; gap:24px;">
                         <div class="glass-card" style="padding:24px; border-radius:20px;">
-                            <h3 style="font-size:12px; font-weight:700; color:var(--t4); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:20px;">Network Utilities</h3>
+                            <h3 style="font-size:12px; font-weight:700; color:var(--t4);  letter-spacing:0.05em; margin-bottom:20px;">Network Utilities</h3>
                             <div style="display:flex; flex-direction:column; gap:12px;">
-                                <button style="width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--p-line); color:var(--t2); padding:16px; border-radius:14px; font-size:12px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                                <button style="width:100%; background:var(--glass); border:1px solid var(--p-line); color:var(--t2); padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
                                     Hotspot Portal Builder <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </button>
-                                <button style="width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--p-line); color:var(--t2); padding:16px; border-radius:14px; font-size:12px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                                <button style="width:100%; background:var(--glass); border:1px solid var(--p-line); color:var(--t2); padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
                                     PPPoE Secret Audit <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </button>
-                                <button style="width:100%; background:rgba(255,255,255,0.03); border:1px solid var(--p-line); color:var(--t2); padding:16px; border-radius:14px; font-size:12px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                                <button style="width:100%; background:var(--glass); border:1px solid var(--p-line); color:var(--t2); padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; text-align:left; cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
                                     Firewall Integrity Scan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </button>
                             </div>
                         </div>
                         
                         <div class="glass-card" style="padding:24px; border-radius:20px; background:linear-gradient(135deg, rgba(232,160,48,0.05) 0%, transparent 100%);">
-                            <div style="font-size:11px; font-weight:700; color:var(--amber); text-transform:uppercase; margin-bottom:12px;">Backbone Health</div>
+                            <div style="font-size:11px; font-weight:700; color:var(--amber);  margin-bottom:12px;">Backbone Health</div>
                             <div style="font-size:24px; font-weight:700; color:var(--t1);">Optimal</div>
                             <p style="font-size:11px; color:var(--t3); margin-top:8px; line-height:1.6;">All core paths are clear. Latency stable at 22ms average across Nairobi POPs.</p>
                         </div>
@@ -2604,21 +3051,21 @@
                 <div style="display:grid; grid-template-columns:280px 1fr; gap:40px; align-items:start;">
                     <!-- Settings Sidebar -->
                     <div style="display:flex; flex-direction:column; gap:10px;">
-                        <div style="font-size:10px; font-weight:800; color:var(--t4); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; padding-left:16px;">Core configuration</div>
-                        <button class="tab on" style="justify-content:flex-start; padding:14px 18px; border-radius:14px; font-size:12px; font-weight:600; width:100%;">
+                        <div style="font-size:10px; font-weight:800; color:var(--t4);  letter-spacing:0.1em; margin-bottom:8px; padding-left:16px;">Core configuration</div>
+                        <button class="tab on" style="justify-content:flex-start; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; width:100%;">
                             <svg style="margin-right:12px; opacity:0.6;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> COMPANY PROFILE
                         </button>
-                        <button class="tab" style="justify-content:flex-start; padding:14px 18px; border-radius:14px; font-size:12px; font-weight:600; width:100%;">
+                        <button class="tab" style="justify-content:flex-start; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; width:100%;">
                             <svg style="margin-right:12px; opacity:0.6;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 15h0M2 9.5h20"/></svg> BILLING & IPN RULES
                         </button>
-                        <button class="tab" style="justify-content:flex-start; padding:14px 18px; border-radius:14px; font-size:12px; font-weight:600; width:100%;">
+                        <button class="tab" style="justify-content:flex-start; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; width:100%;">
                             <svg style="margin-right:12px; opacity:0.6;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> COMMUNICATION
                         </button>
-                        <div style="margin-top:20px; font-size:10px; font-weight:800; color:var(--t4); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px; padding-left:16px;">System & Security</div>
-                        <button class="tab" style="justify-content:flex-start; padding:14px 18px; border-radius:14px; font-size:12px; font-weight:600; width:100%;">
+                        <div style="margin-top:20px; font-size:10px; font-weight:800; color:var(--t4);  letter-spacing:0.1em; margin-bottom:8px; padding-left:16px;">System & Security</div>
+                        <button class="tab" style="justify-content:flex-start; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; width:100%;">
                             <svg style="margin-right:12px; opacity:0.6;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> AUTHENTICATION
                         </button>
-                        <button class="tab" style="justify-content:flex-start; padding:14px 18px; border-radius:14px; font-size:12px; font-weight:600; width:100%;">
+                        <button class="tab" style="justify-content:flex-start; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:600; width:100%;">
                             <svg style="margin-right:12px; opacity:0.6;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> DOMAIN & WHITELABEL
                         </button>
                     </div>
@@ -2626,32 +3073,32 @@
                     <!-- Settings Form Area -->
                     <div class="glass-card" style="padding:48px; border-radius:28px; position:relative; overflow:hidden;">
                         <div style="position:absolute; top:0; right:0; width:200px; height:200px; background:radial-gradient(circle at center, var(--p-glow) 0%, transparent 70%); opacity:0.05; transform:translate(40%, -40%);"></div>
-                        <h3 style="font-size:14px; font-weight:700; color:var(--t1); margin-bottom:32px; text-transform:uppercase; letter-spacing:0.1em; display:flex; align-items:center; gap:12px;">
+                        <h3 style="font-size:14px; font-weight:700; color:var(--t1); margin-bottom:32px;  letter-spacing:0.1em; display:flex; align-items:center; gap:12px;">
                             Corporate identity <div style="flex:1; height:1px; background:var(--p-line);"></div>
                         </h3>
                         
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:40px;">
                             <div>
-                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:12px;">Organization Name</label>
+                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4);  margin-bottom:12px;">Organization Name</label>
                                 <input type="text" value="NetConnect ISP" class="neo-input" style="width:100%; padding:14px 16px;">
                             </div>
                             <div>
-                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:12px;">Primary Contact</label>
+                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4);  margin-bottom:12px;">Primary Contact</label>
                                 <input type="text" value="+254 712 345 678" class="neo-input mono" style="width:100%; padding:14px 16px;">
                             </div>
                             <div>
-                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:12px;">Official Correspondence</label>
+                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4);  margin-bottom:12px;">Official Correspondence</label>
                                 <input type="text" value="legal@netconnect.co.ke" class="neo-input" style="width:100%; padding:14px 16px;">
                             </div>
                             <div>
-                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:12px;">Operational HQ</label>
+                                <label style="display:block; font-size:11px; font-weight:700; color:var(--t4);  margin-bottom:12px;">Operational HQ</label>
                                 <input type="text" value="Westlands, Nairobi, KE" class="neo-input" style="width:100%; padding:14px 16px;">
                             </div>
                         </div>
 
                         <div style="display:flex; justify-content:flex-end; gap:20px; padding-top:40px; border-top:1px solid var(--p-line);">
                             <button style="background:transparent; border:none; color:var(--t4); font-size:13px; font-weight:600; cursor:pointer;">Discard all changes</button>
-                            <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:16px 40px; border-radius:14px; font-size:13px; font-weight:700; cursor:pointer; box-shadow:0 8px 32px var(--p-glow);">COMMIT UPDATES</button>
+                            <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:14px; font-size:10px; font-weight:700; cursor:pointer; box-shadow:0 8px 32px var(--p-glow);">Commit updates</button>
                         </div>
                     </div>
                 </div>
@@ -2664,7 +3111,7 @@
                         <h2 style="font-size:24px; font-weight:700; color:var(--t1); letter-spacing:-0.03em;">Service architect</h2>
                         <p style="font-size:12px; color:var(--t3); margin-top:4px;">Define bandwidth constraints and commercial tiers for your network.</p>
                     </div>
-                    <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-size:12px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px var(--p-glow);">+ CREATE PACKAGE</button>
+                    <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer; box-shadow:0 8px 24px var(--p-glow);">+ Create package</button>
                 </div>
 
                 <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:24px;">
@@ -2684,18 +3131,18 @@
                         </div>
                         <div style="margin-top:24px; pt:24px; border-top:1px solid var(--p-line); display:flex; flex-direction:column; gap:16px;">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="font-size:11px; color:var(--t4); text-transform:uppercase; font-weight:700;">Bandwidth</div>
+                                <div style="font-size:11px; color:var(--t4);  font-weight:700;">Bandwidth</div>
                                 <div class="mono" style="font-size:13px; font-weight:700; color:var(--t2);">30M <span style="font-weight:400; color:var(--t4);">/</span> 30M</div>
                             </div>
-                            <div style="height:4px; background:rgba(255,255,255,0.05); border-radius:2px; overflow:hidden;">
+                            <div style="height:4px; background:var(--glass-h); border-radius:2px; overflow:hidden;">
                                 <div style="width:60%; height:100%; background:var(--p); box-shadow:0 0 8px var(--p-glow);"></div>
                             </div>
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="font-size:11px; color:var(--t4); text-transform:uppercase; font-weight:700;">Subs active</div>
+                                <div style="font-size:11px; color:var(--t4);  font-weight:700;">Subs active</div>
                                 <div style="font-size:13px; font-weight:700; color:var(--t1);">12,412</div>
                             </div>
                         </div>
-                        <button class="tab" style="width:100%; margin-top:24px; padding:12px; border-radius:12px; font-weight:700; font-size:11px;">CONFIGURE PLAN</button>
+                        <button class="tab" style="width:100%; margin-top:24px; padding:6px 12px; border-radius:12px; font-weight:700; font-size:10px;">Configure plan</button>
                     </div>
 
                     <!-- Plan Card 2 -->
@@ -2713,18 +3160,18 @@
                         </div>
                         <div style="margin-top:24px; pt:24px; border-top:1px solid var(--p-line); display:flex; flex-direction:column; gap:16px;">
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="font-size:11px; color:var(--t4); text-transform:uppercase; font-weight:700;">Bandwidth</div>
+                                <div style="font-size:11px; color:var(--t4);  font-weight:700;">Bandwidth</div>
                                 <div class="mono" style="font-size:13px; font-weight:700; color:var(--t2);">50M <span style="font-weight:400; color:var(--t4);">/</span> 50M</div>
                             </div>
-                            <div style="height:4px; background:rgba(255,255,255,0.05); border-radius:2px; overflow:hidden;">
+                            <div style="height:4px; background:var(--glass-h); border-radius:2px; overflow:hidden;">
                                 <div style="width:85%; height:100%; background:var(--green); box-shadow:0 0 8px var(--green-glow);"></div>
                             </div>
                             <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="font-size:11px; color:var(--t4); text-transform:uppercase; font-weight:700;">Subs active</div>
+                                <div style="font-size:11px; color:var(--t4);  font-weight:700;">Subs active</div>
                                 <div style="font-size:13px; font-weight:700; color:var(--t1);">4,890</div>
                             </div>
                         </div>
-                        <button class="tab" style="width:100%; margin-top:24px; padding:12px; border-radius:12px; font-weight:700; font-size:11px;">CONFIGURE PLAN</button>
+                        <button class="tab" style="width:100%; margin-top:24px; padding:6px 12px; border-radius:12px; font-weight:700; font-size:10px;">Configure plan</button>
                     </div>
                 </div>
             </div><!-- /packages -->
@@ -2746,7 +3193,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                         </div>
                         <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Peak Today</div>
+                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">Peak Today</div>
                             <div style="font-size:20px; font-weight:700; color:var(--t1);">24,108</div>
                         </div>
                     </div>
@@ -2755,7 +3202,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
                         </div>
                         <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">Throughput</div>
+                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">Throughput</div>
                             <div style="font-size:20px; font-weight:700; color:var(--t1);">24.7 Gbps</div>
                         </div>
                     </div>
@@ -2764,7 +3211,7 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                         </div>
                         <div>
-                            <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700;">High Usage</div>
+                            <div style="font-size:10px; color:var(--t4);  font-weight:700;">High Usage</div>
                             <div style="font-size:20px; font-weight:700; color:var(--t1);">312 nodes</div>
                         </div>
                     </div>
@@ -2773,7 +3220,7 @@
                 <div class="glass-card" style="padding:0; overflow:hidden;">
                     <table class="tbl">
                         <thead>
-                            <tr style="background:rgba(255,255,255,0.02);">
+                            <tr style="background:var(--glass);">
                                 <th style="padding:16px 24px;">Subscriber</th>
                                 <th>IP Address</th>
                                 <th>Uptime</th>
@@ -2797,7 +3244,7 @@
                                 <td style="text-align:right;">
                                     <div style="font-size:11px; font-weight:600; color:var(--t1);">12.4 GB <span style="color:var(--t4); font-weight:400;">/ 1.2 GB</span></div>
                                 </td>
-                                <td style="padding-right:24px; text-align:right;"><button class="tab" style="color:var(--red); font-size:10px; font-weight:700;">DISCONNECT</button></td>
+                                <td style="padding-right:24px; text-align:right;"><button class="tab" style="color:var(--red); font-size:10px; font-weight:700;">Disconnect</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -2813,7 +3260,7 @@
                 
                 <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-bottom:32px;">
                     <div class="glass-card" style="padding:24px; background:linear-gradient(135deg, rgba(39,174,96,0.05) 0%, transparent 100%);">
-                        <div style="font-size:10px; color:var(--green); font-weight:700; text-transform:uppercase; margin-bottom:16px;">Traffic Peak</div>
+                        <div style="font-size:10px; color:var(--green); font-weight:700;  margin-bottom:16px;">Traffic Peak</div>
                         <div style="font-size:32px; font-weight:700; color:var(--t1);">8.2 <span style="font-size:16px; color:var(--t4); font-weight:400;">Gbps</span></div>
                         <div style="margin-top:16px; display:flex; align-items:center; gap:8px;">
                             <span class="badge g">↑ 14%</span>
@@ -2821,7 +3268,7 @@
                         </div>
                     </div>
                     <div class="glass-card" style="padding:24px; background:linear-gradient(135deg, rgba(46,204,142,0.05) 0%, transparent 100%);">
-                        <h3 style="font-size:10px; color:var(--t4); font-weight:700; text-transform:uppercase; margin-bottom:16px;">New Subs (30d)</h3>
+                        <h3 style="font-size:10px; color:var(--t4); font-weight:700;  margin-bottom:16px;">New Subs (30d)</h3>
                         <div style="font-size:32px; font-weight:700; color:var(--t1);">+1,248</div>
                         <div style="margin-top:16px; display:flex; align-items:center; gap:8px;">
                             <span class="badge g">↑ 8.2%</span>
@@ -2829,7 +3276,7 @@
                         </div>
                     </div>
                     <div class="glass-card" style="padding:24px; background:linear-gradient(135deg, rgba(224,92,110,0.05) 0%, transparent 100%);">
-                        <h3 style="font-size:10px; color:var(--red); font-weight:700; text-transform:uppercase; margin-bottom:16px;">Churn Risk</h3>
+                        <h3 style="font-size:10px; color:var(--red); font-weight:700;  margin-bottom:16px;">Churn Risk</h3>
                         <div style="font-size:32px; font-weight:700; color:var(--red);">2.1%</div>
                         <div style="margin-top:16px; display:flex; align-items:center; gap:8px;">
                             <span class="badge r">↓ 0.4%</span>
@@ -3120,7 +3567,7 @@
                 <div class="glass-card" style="padding:0; overflow:hidden;">
                     <table class="tbl">
                         <thead>
-                            <tr style="background:rgba(255,255,255,0.02);">
+                            <tr style="background:var(--glass);">
                                 <th style="padding:16px 24px;">Server Name</th>
                                 <th>Interface</th>
                                 <th>Address Pool</th>
@@ -3154,7 +3601,7 @@
                 <div class="glass-card" style="padding:0; overflow:hidden;">
                     <table class="tbl">
                         <thead>
-                            <tr style="background:rgba(255,255,255,0.02);">
+                            <tr style="background:var(--glass);">
                                 <th style="padding:16px 24px;">Service Name</th>
                                 <th>Interface</th>
                                 <th>Max Sessions</th>
@@ -3184,12 +3631,12 @@
                         <h2 style="font-size:24px; font-weight:700; color:var(--t1); letter-spacing:-0.03em;">Automation engine</h2>
                         <p style="font-size:12px; color:var(--t3); margin-top:4px;">MikroTik scripts, API hooks, and periodic maintenance schedulers.</p>
                     </div>
-                    <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:12px 24px; border-radius:12px; font-size:12px; font-weight:700; cursor:pointer;">+ NEW TASK</button>
+                    <button class="shimmer" style="background:var(--p); color:#fff; border:none; padding:6px 12px; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer;">+ New task</button>
                 </div>
                 <div class="glass-card" style="padding:0; overflow:hidden;">
                     <table class="tbl">
                         <thead>
-                            <tr style="background:rgba(255,255,255,0.02);">
+                            <tr style="background:var(--glass);">
                                 <th style="padding:16px 24px;">Task Name</th>
                                 <th>Schedule</th>
                                 <th>Last Run</th>
@@ -3205,7 +3652,7 @@
                                 <td class="mono" style="font-size:11px; color:var(--t3);">00:00 Daily</td>
                                 <td class="mono" style="font-size:11px; color:var(--t4);">Today 00:00</td>
                                 <td style="text-align:right;"><span class="stat ok" style="padding:4px 8px; font-size:10px;">SUCCESS</span></td>
-                                <td style="padding-right:24px; text-align:right;"><button class="tab" style="padding:6px 12px; font-size:10px; font-weight:700;">EXECUTE</button></td>
+                                <td style="padding-right:24px; text-align:right;"><button class="tab" style="padding:6px 12px; font-size:10px; font-weight:700;">Execute</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -3232,22 +3679,22 @@
                         
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:40px; padding-top:40px; border-top:1px solid var(--p-line);">
                             <div>
-                                <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700; margin-bottom:16px;">Subscriber Capacity</div>
+                                <div style="font-size:10px; color:var(--t4);  font-weight:700; margin-bottom:16px;">Subscriber Capacity</div>
                                 <div style="font-size:28px; font-weight:700; color:var(--t1);">30,000</div>
                                 <div style="margin-top:12px; font-size:11px; color:var(--t3);">21,842 currently active</div>
                             </div>
                             <div>
-                                <div style="font-size:10px; color:var(--t4); text-transform:uppercase; font-weight:700; margin-bottom:16px;">Next Billing</div>
+                                <div style="font-size:10px; color:var(--t4);  font-weight:700; margin-bottom:16px;">Next Billing</div>
                                 <div style="font-size:28px; font-weight:700; color:var(--t1);">June 2026</div>
                                 <div style="margin-top:12px; font-size:11px; color:var(--t3);">Annual cycle (Active)</div>
                             </div>
                         </div>
                         
-                        <button class="shimmer" style="width:100%; margin-top:48px; background:rgba(255,255,255,0.05); color:var(--t1); border:1px solid var(--p-line); padding:16px; border-radius:14px; font-size:13px; font-weight:700; cursor:pointer;">MANAGE PAYMENT METHOD</button>
+                        <button class="shimmer" style="width:100%; margin-top:48px; background:var(--glass-h); color:var(--t1); border:1px solid var(--p-line); padding:6px 12px; border-radius:14px; font-size:10px; font-weight:700; cursor:pointer;">Manage payment method</button>
                     </div>
                     
                     <div class="glass-card" style="padding:24px; border-radius:24px;">
-                        <h4 style="font-size:12px; font-weight:700; color:var(--t4); text-transform:uppercase; margin-bottom:20px;">Feature Roadmap</h4>
+                        <h4 style="font-size:12px; font-weight:700; color:var(--t4);  margin-bottom:20px;">Feature Roadmap</h4>
                         <div style="display:flex; flex-direction:column; gap:16px;">
                             <div style="display:flex; gap:12px; align-items:center;">
                                 <div style="width:20px; height:20px; border-radius:50%; background:var(--p-dim); color:var(--p); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -3281,22 +3728,22 @@
                 
                 <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">
                     <div class="glass-card cp" style="padding:32px; border-radius:24px;">
-                        <div style="width:48px; height:48px; border-radius:14px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:24px;">📚</div>
+                        <div style="width:48px; height:48px; border-radius:14px; background:var(--glass-h); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:24px;">📚</div>
                         <div style="font-size:16px; font-weight:700; color:var(--t1); margin-bottom:12px;">Technical Guides</div>
                         <p style="font-size:12px; color:var(--t3); line-height:1.7;">Deep-dive into MikroTik integration, Radius logic, and network orchestration.</p>
-                        <button class="tab" style="margin-top:24px; width:100%; padding:12px; font-size:11px; font-weight:700;">BROWSE ARTICLES</button>
+                        <button class="tab" style="margin-top:24px; width:100%; padding:6px 12px; font-size:10px; font-weight:700;">Browse articles</button>
                     </div>
                     <div class="glass-card cp" style="padding:32px; border-radius:24px;">
-                        <div style="width:48px; height:48px; border-radius:14px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:24px;">⚙️</div>
+                        <div style="width:48px; height:48px; border-radius:14px; background:var(--glass-h); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:24px;">⚙️</div>
                         <div style="font-size:16px; font-weight:700; color:var(--t1); margin-bottom:12px;">API Reference</div>
                         <p style="font-size:12px; color:var(--t3); line-height:1.7;">Complete technical specifications for webhooks, REST endpoints and IPN callbacks.</p>
-                        <button class="tab" style="margin-top:24px; width:100%; padding:12px; font-size:11px; font-weight:700;">EXPLORE ENDPOINTS</button>
+                        <button class="tab" style="margin-top:24px; width:100%; padding:6px 12px; font-size:10px; font-weight:700;">Explore endpoints</button>
                     </div>
                     <div class="glass-card cp" style="padding:32px; border-radius:24px; border:1px solid var(--p);">
                         <div style="width:48px; height:48px; border-radius:14px; background:var(--p-dim); display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:24px; color:var(--p);">🛠️</div>
                         <div style="font-size:16px; font-weight:700; color:var(--t1); margin-bottom:12px;">Engineer Hotline</div>
                         <p style="font-size:12px; color:var(--t3); line-height:1.7;">Priority technical support for Enterprise partners. Direct engineer escalation.</p>
-                        <button class="shimmer" style="margin-top:24px; width:100%; padding:12px; background:var(--p); color:#fff; border:none; border-radius:12px; font-size:11px; font-weight:700; cursor:pointer;">OPEN TICKET</button>
+                        <button class="shimmer" style="margin-top:24px; width:100%; padding:6px 12px; background:var(--p); color:#fff; border:none; border-radius:12px; font-size:10px; font-weight:700; cursor:pointer;">Open ticket</button>
                     </div>
                 </div>
             </div><!-- /help -->
@@ -3388,6 +3835,33 @@
             document.getElementById('view-' + mode).classList.add('on');
         }
 
+        /* Custom Dropdown Logic */
+        function toggleDropdown(el, e) {
+            const parent = el.parentElement;
+            document.querySelectorAll('.custom-dropdown').forEach(d => {
+                if(d !== parent) d.classList.remove('open');
+            });
+            parent.classList.toggle('open');
+            e.stopPropagation();
+        }
+        function selectOption(el, e) {
+            const parent = el.closest('.custom-dropdown');
+            parent.querySelector('.cd-val').innerText = el.innerText;
+            parent.querySelectorAll('.cd-opt').forEach(o => {
+                o.classList.remove('active');
+                o.style.background = 'transparent';
+                o.style.color = 'var(--t3)';
+            });
+            el.classList.add('active');
+            el.style.background = 'var(--glass-h)';
+            el.style.color = 'var(--t1)';
+            parent.classList.remove('open');
+            e.stopPropagation();
+        }
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('open'));
+        });
+
         /* Speedo */
         function drawSpeedo(id, val, min, max, a, r) {
             const canvas = document.getElementById(id); if (!canvas) return;
@@ -3403,7 +3877,7 @@
 
             // Background Track
             ctx.beginPath(); ctx.arc(cx, cy, R, sA, sA + sw);
-            ctx.strokeStyle = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.05)'; ctx.lineWidth = SW; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.strokeStyle = isLight ? 'rgba(0,0,0,0.04)' : 'var(--glass-h)'; ctx.lineWidth = SW; ctx.lineCap = 'round'; ctx.stroke();
 
             // Color logic
             const col = pct >= r ? '#FF4D4D' : pct >= a ? '#FFB300' : '#00F59B';
@@ -3427,7 +3901,7 @@
             for (let t = 0; t <= 10; t++) {
                 const ta = sA + (t / 10) * sw, big = t % 5 === 0, inn = big ? R - SW * .85 : R - SW * .5, out = R + SW * .18;
                 ctx.beginPath(); ctx.moveTo(cx + out * Math.cos(ta), cy + out * Math.sin(ta)); ctx.lineTo(cx + inn * Math.cos(ta), cy + inn * Math.sin(ta));
-                ctx.strokeStyle = isLight ? (big ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.03)') : (big ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)'); ctx.lineWidth = 1; ctx.stroke();
+                ctx.strokeStyle = isLight ? (big ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.03)') : (big ? 'rgba(255,255,255,0.12)' : 'var(--glass-h)'); ctx.lineWidth = 1; ctx.stroke();
             }
 
             // Pointer
@@ -3470,7 +3944,7 @@
                 // Update scales grid and ticks colors
                 if (chart.options.scales) {
                     Object.values(chart.options.scales).forEach(scale => {
-                        if (scale.grid) scale.grid.color = isLight ? 'rgba(0,0,0,0.03)' : 'rgba(255,255,255,0.02)';
+                        if (scale.grid) scale.grid.color = isLight ? 'rgba(0,0,0,0.03)' : 'var(--glass)';
                         if (scale.ticks) scale.ticks.color = isLight ? '#868E96' : 'rgba(210,196,176,0.4)';
                     });
                 }
@@ -3502,7 +3976,7 @@
                         { data: inb, borderColor: '#00F59B', backgroundColor: 'rgba(0,245,155,0.05)', fill: true, borderWidth: 1.5, pointRadius: 0, tension: .4 },
                         { data: out, borderColor: '#F5A623', backgroundColor: 'rgba(245,166,35,0.03)', fill: true, borderWidth: 1, pointRadius: 0, tension: .4 }
                     ]
-                }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 400 }, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(245,166,35,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(245,166,35,0.4)', callback: v => v + 'G' }, min: 0, max: 60 } } }
+                }, options: { responsive: true, maintainAspectRatio: false, animation: { duration: 400 }, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(245,166,35,0.4)' } }, y: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(245,166,35,0.4)', callback: v => v + 'G' }, min: 0, max: 60 } } }
             });
         })();
 
@@ -3510,31 +3984,31 @@
 
         (function () {
             const z = ['Westlands', 'CBD', 'Kilimani', 'Karen', 'Kasarani', 'Embakasi', 'Ruaraka'], u = [65, 70, 58, 52, 88, 61, 44];
-            window._bw = new Chart(document.getElementById('bwchart'), { type: 'bar', data: { labels: z, datasets: [{ data: u, backgroundColor: u.map(v => v > 80 ? 'rgba(224,92,110,0.55)' : v > 65 ? 'rgba(232,160,48,0.55)' : 'rgba(232,160,48,0.35)'), borderRadius: 4, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 600 }, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.parsed.x + '% utilized' } } }, scales: { x: { min: 0, max: 100, grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(159,153,199,0.4)', callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { color: 'rgba(159,153,199,0.6)' } } } } });
+            window._bw = new Chart(document.getElementById('bwchart'), { type: 'bar', data: { labels: z, datasets: [{ data: u, backgroundColor: u.map(v => v > 80 ? 'rgba(224,92,110,0.55)' : v > 65 ? 'rgba(232,160,48,0.55)' : 'rgba(232,160,48,0.35)'), borderRadius: 4, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, animation: { duration: 600 }, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.parsed.x + '% utilized' } } }, scales: { x: { min: 0, max: 100, grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(159,153,199,0.4)', callback: v => v + '%' } }, y: { grid: { display: false }, ticks: { color: 'rgba(159,153,199,0.6)' } } } } });
             window._bwBase = [...u];
         })();
 
         (function () {
             const m = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
-            new Chart(document.getElementById('revchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Residential', data: [28, 30, 31, 30, 33, 35, 36, 35, 37, 38, 37, 40], backgroundColor: 'rgba(232,160,48,0.7)', borderRadius: 3 }, { label: 'Business', data: [20, 21, 22, 21, 23, 24, 25, 23, 26, 27, 26, 28], backgroundColor: 'rgba(180,120,20,0.7)', borderRadius: 3 }, { label: 'Enterprise', data: [14, 15, 15, 16, 17, 17, 18, 16, 19, 20, 19, 21], backgroundColor: 'rgba(232,160,48,0.3)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { stacked: true, grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.4)' } }, y: { stacked: true, grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(210,196,176,0.4)', callback: v => 'KES ' + v + 'M' } } } } });
+            new Chart(document.getElementById('revchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Residential', data: [28, 30, 31, 30, 33, 35, 36, 35, 37, 38, 37, 40], backgroundColor: 'rgba(232,160,48,0.7)', borderRadius: 3 }, { label: 'Business', data: [20, 21, 22, 21, 23, 24, 25, 23, 26, 27, 26, 28], backgroundColor: 'rgba(180,120,20,0.7)', borderRadius: 3 }, { label: 'Enterprise', data: [14, 15, 15, 16, 17, 17, 18, 16, 19, 20, 19, 21], backgroundColor: 'rgba(232,160,48,0.3)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { stacked: true, grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.4)' } }, y: { stacked: true, grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(210,196,176,0.4)', callback: v => 'KES ' + v + 'M' } } } } });
         })();
 
         (function () {
             const m = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N'];
-            new Chart(document.getElementById('growthchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Net adds', data: [640, 720, 590, 810, 920, 700, 1010, 860, 790, 1080, 1210], backgroundColor: 'rgba(232,160,48,0.65)', borderRadius: 3 }, { label: 'Churn', data: [-80, -65, -95, -72, -58, -88, -63, -74, -80, -61, -52], backgroundColor: 'rgba(224,92,110,0.45)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(210,196,176,0.4)' } } } } });
+            new Chart(document.getElementById('growthchart'), { type: 'bar', data: { labels: m, datasets: [{ label: 'Net adds', data: [640, 720, 590, 810, 920, 700, 1010, 860, 790, 1080, 1210], backgroundColor: 'rgba(232,160,48,0.65)', borderRadius: 3 }, { label: 'Churn', data: [-80, -65, -95, -72, -58, -88, -63, -74, -80, -61, -52], backgroundColor: 'rgba(224,92,110,0.45)', borderRadius: 3 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT } }, scales: { x: { grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.4)' } }, y: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(210,196,176,0.4)' } } } } });
         })();
 
         (function () {
             const m = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
             const actual = [61, 65, 68, 72, 87, null, null, null, null, null, null, null];
             const proj = [null, null, null, null, 87, 91, 95, 99, 103, 107, 110, 114];
-            new Chart(document.getElementById('mptrend'), { type: 'line', data: { labels: m, datasets: [{ label: 'Actual', data: actual, borderColor: 'var(--mpesa)', backgroundColor: 'rgba(39,174,96,0.08)', fill: true, borderWidth: 1.8, pointRadius: 3, pointBackgroundColor: 'var(--mpesa)', tension: .4 }, { label: 'Projection', data: proj, borderColor: 'rgba(39,174,96,0.4)', borderDash: [5, 4], backgroundColor: 'rgba(39,174,96,0.03)', fill: true, borderWidth: 1.2, pointRadius: 2, pointBackgroundColor: 'rgba(39,174,96,0.4)', tension: .4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, filter: i => i.parsed.y !== null } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => 'KES ' + v + 'M' }, min: 50, max: 125 } } } });
+            new Chart(document.getElementById('mptrend'), { type: 'line', data: { labels: m, datasets: [{ label: 'Actual', data: actual, borderColor: 'var(--mpesa)', backgroundColor: 'rgba(39,174,96,0.08)', fill: true, borderWidth: 1.8, pointRadius: 3, pointBackgroundColor: 'var(--mpesa)', tension: .4 }, { label: 'Projection', data: proj, borderColor: 'rgba(39,174,96,0.4)', borderDash: [5, 4], backgroundColor: 'rgba(39,174,96,0.03)', fill: true, borderWidth: 1.2, pointRadius: 2, pointBackgroundColor: 'rgba(39,174,96,0.4)', tension: .4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, filter: i => i.parsed.y !== null } }, scales: { x: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(138,128,176,0.4)' } }, y: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(138,128,176,0.4)', callback: v => 'KES ' + v + 'M' }, min: 50, max: 125 } } } });
         })();
 
         (function () {
             const z = ['Westlands', 'CBD', 'Kilimani', 'Karen', 'Kasarani', 'Embakasi', 'Ruaraka'];
             const col = [26.8, 20.2, 15.4, 13.5, 6.1, 3.8, 1.6], pot = [28, 22, 17, 14, 14.5, 10, 4.2];
-            new Chart(document.getElementById('zonechart'), { type: 'bar', data: { labels: z, datasets: [{ label: 'Collected', data: col, backgroundColor: 'rgba(39,174,96,0.6)', borderRadius: 3, borderSkipped: false }, { label: 'Potential', data: pot, backgroundColor: 'rgba(232,160,48,0.2)', borderRadius: 3, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.dataset.label + ': KES ' + c.parsed.x + 'M' } } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.02)' }, ticks: { color: 'rgba(210,196,176,0.4)', callback: v => 'KES ' + v + 'M' } }, y: { grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.6)' } } } } });
+            new Chart(document.getElementById('zonechart'), { type: 'bar', data: { labels: z, datasets: [{ label: 'Collected', data: col, backgroundColor: 'rgba(39,174,96,0.6)', borderRadius: 3, borderSkipped: false }, { label: 'Potential', data: pot, backgroundColor: 'rgba(232,160,48,0.2)', borderRadius: 3, borderSkipped: false }] }, options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: c => c.dataset.label + ': KES ' + c.parsed.x + 'M' } } }, scales: { x: { grid: { color: 'var(--glass)' }, ticks: { color: 'rgba(210,196,176,0.4)', callback: v => 'KES ' + v + 'M' } }, y: { grid: { display: false }, ticks: { color: 'rgba(210,196,176,0.6)' } } } } });
         })();
 
         /* Live engine */
@@ -3597,12 +4071,378 @@
             if (rows.length > 8) { const old = rows[rows.length - 1]; old.style.opacity = '0'; setTimeout(() => old.remove(), 400); }
         }
 
+        /* Modal Onboarding Logic */
+        let currentStep = 1;
+        const totalSteps = 4;
+        function openModal() {
+            document.getElementById('onboard-modal').classList.add('show');
+            currentStep = 1;
+            
+            // Reset success state visibility
+            document.querySelector('.step-indicator').style.display = 'flex';
+            document.querySelector('.modal-footer').style.display = 'flex';
+            document.getElementById('step-success').classList.remove('active');
+            
+            // Clear any old confetti
+            const wrapper = document.querySelector('.success-tick-wrapper');
+            const particles = wrapper.querySelectorAll('.confetti-particle');
+            particles.forEach(p => p.remove());
+
+            updateStep();
+        }
+        function closeModal() {
+            document.getElementById('onboard-modal').classList.remove('show');
+        }
+        function updateStep() {
+            document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step-' + currentStep).classList.add('active');
+            
+            document.querySelectorAll('.step-item').forEach((item, i) => {
+                const stepNum = i + 1;
+                item.classList.remove('active', 'completed');
+                if(stepNum < currentStep) item.classList.add('completed');
+                else if(stepNum === currentStep) item.classList.add('active');
+            });
+
+            document.getElementById('prev-btn').style.display = currentStep > 1 ? 'block' : 'none';
+            document.getElementById('next-btn').style.display = currentStep < totalSteps ? 'block' : 'none';
+            document.getElementById('finish-btn').style.display = currentStep === totalSteps ? 'block' : 'none';
+        }
+        function nextStep() { if(currentStep < totalSteps) { currentStep++; updateStep(); } }
+        function prevStep() { if(currentStep > 1) { currentStep--; updateStep(); } }
+        function finishOnboard() {
+            // Hide indicator and existing steps
+            document.querySelector('.step-indicator').style.display = 'none';
+            document.querySelectorAll('.onboard-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('.modal-footer').style.display = 'none';
+            
+            // Show success
+            const success = document.getElementById('step-success');
+            success.classList.add('active');
+            
+            // Trigger confetti
+            triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            const wrapper = document.querySelector('.success-tick-wrapper');
+            for(let i=0; i<12; i++) {
+                const p = document.createElement('div');
+                p.className = 'confetti-particle';
+                const angle = (i / 12) * Math.PI * 2;
+                const dist = 60 + Math.random() * 40;
+                const tx = Math.cos(angle) * dist;
+                const ty = Math.sin(angle) * dist;
+                p.style.setProperty('--tx', tx + 'px');
+                p.style.setProperty('--ty', ty + 'px');
+                p.style.left = '50%';
+                p.style.top = '50%';
+                p.style.background = i % 2 === 0 ? 'var(--p)' : 'var(--green)';
+                p.style.animation = `confettiFall ${1 + Math.random()}s ease-out forwards`;
+                wrapper.appendChild(p);
+            }
+        }
+
+        /* Interactive Toggles */
+        function toggleTab(btn) {
+            const container = btn.parentElement;
+            container.querySelectorAll('button').forEach(b => {
+                b.style.background = 'transparent';
+                b.style.color = 'var(--t3)';
+                b.style.boxShadow = 'none';
+                b.style.fontWeight = '600';
+            });
+            btn.style.background = 'var(--sidebar)';
+            btn.style.color = 'var(--p)';
+            btn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            btn.style.fontWeight = '700';
+        }
+
+        function selectPayCat(el) {
+            const container = el.parentElement;
+            container.querySelectorAll('.pay-cat-btn').forEach(b => {
+                b.style.border = '1px solid var(--p-line)';
+                b.style.background = 'var(--glass)';
+                b.style.opacity = '0.6';
+                const circle = b.querySelector('.circle-icon');
+                if(circle) {
+                    circle.style.background = 'var(--glass-h)';
+                    circle.querySelector('svg').style.stroke = 'var(--t3)';
+                }
+            });
+            el.style.border = '2px solid var(--p)';
+            el.style.background = 'var(--glass-h)';
+            el.style.opacity = '1';
+            const activeCircle = el.querySelector('.circle-icon');
+            if(activeCircle) {
+                activeCircle.style.background = 'var(--p)';
+                activeCircle.querySelector('svg').style.stroke = 'white';
+            }
+        }
+
+        function toggleCalendar(el) {
+            const cal = el.parentElement.querySelector('.premium-calendar');
+            const isVisible = cal.style.display === 'block';
+            document.querySelectorAll('.premium-calendar').forEach(c => c.style.display = 'none');
+            cal.style.display = isVisible ? 'none' : 'block';
+        }
+
         setTimeout(() => { liveUpdate(); streamTxn(); }, 600);
         setInterval(liveUpdate, 3000);
         setInterval(streamTxn, 5500);
         setInterval(updateBW, 9000);
         setInterval(() => { tickSubs(); pulseCollect(); }, 13000);
     </script>
-</body>
+    <!-- Onboarding Modal -->
+    <div id="onboard-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 style="font-size:18px; font-weight:600; color:var(--t1);">Onboard new customer</h2>
+                    <p style="font-size:11px; color:var(--t3); margin-top:4px;">Follow the steps to provision a new subscriber account.</p>
+                </div>
+                <button class="cp" style="background:var(--glass-h); border:1px solid var(--p-line); width:32px; height:32px; border-radius:10px; color:var(--t2); display:flex; align-items:center; justify-content:center; transition:all 0.2s;" onclick="closeModal()" onmouseover="this.style.background='var(--p-line)'" onmouseout="this.style.background='var(--glass-h)'">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="step-indicator">
+                    <div class="step-item active" id="step-item-1">
+                        <div class="step-circle">1</div>
+                        <div class="step-line"></div>
+                    </div>
+                    <div class="step-item" id="step-item-2">
+                        <div class="step-circle">2</div>
+                        <div class="step-line"></div>
+                    </div>
+                    <div class="step-item" id="step-item-3">
+                        <div class="step-circle">3</div>
+                        <div class="step-line"></div>
+                    </div>
+                    <div class="step-item" id="step-item-4">
+                        <div class="step-circle">4</div>
+                    </div>
+                </div>
 
+                <!-- Step 1: Identity -->
+                <div class="onboard-step active" id="step-1">
+                    <div style="margin-bottom:20px; display:flex; padding:4px; background:var(--glass-h); border-radius:12px; width:fit-content; border:1px solid var(--p-line);">
+                        <button class="cp" style="padding:6px 14px; border-radius:8px; border:none; background:var(--sidebar); color:var(--p); font-size:10px; font-weight:700; box-shadow:0 2px 4px rgba(0,0,0,0.1); transition:all 0.2s;" onclick="toggleTab(this)">New Identity</button>
+                        <button class="cp" style="padding:6px 14px; border-radius:8px; border:none; background:transparent; color:var(--t3); font-size:10px; font-weight:600; transition:all 0.2s;" onclick="toggleTab(this)">Existing Customer</button>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                        <div style="grid-column: span 2;">
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Full name</label>
+                            <input type="text" class="neo-input" placeholder="e.g. John Doe">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Phone number</label>
+                            <input type="text" class="neo-input" placeholder="+254...">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Email address</label>
+                            <input type="email" class="neo-input" placeholder="john@example.com">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Location -->
+                <div class="onboard-step" id="step-2">
+                    <div style="margin-bottom:20px; display:flex; padding:4px; background:var(--glass-h); border-radius:12px; width:fit-content; border:1px solid var(--p-line);">
+                        <button class="cp" style="padding:6px 14px; border-radius:8px; border:none; background:var(--sidebar); color:var(--p); font-size:10px; font-weight:700; box-shadow:0 2px 4px rgba(0,0,0,0.1); transition:all 0.2s;" onclick="toggleTab(this)">New Building</button>
+                        <button class="cp" style="padding:6px 14px; border-radius:8px; border:none; background:transparent; color:var(--t3); font-size:10px; font-weight:600; transition:all 0.2s;" onclick="toggleTab(this)">Existing Property</button>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                        <div style="grid-column: span 2;">
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Building / property name</label>
+                            <input type="text" class="neo-input" placeholder="e.g. Summit Apartments">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Unit / door number</label>
+                            <input type="text" class="neo-input" placeholder="e.g. A4">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Area / zone</label>
+                            <input type="text" class="neo-input" placeholder="e.g. Kilimani">
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Physical installation address</label>
+                            <textarea class="neo-input" style="height:50px; resize:none;" placeholder="House No, Street..."></textarea>
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">GPS coordinates / pin location</label>
+                            <div style="display:flex; gap:10px;">
+                                <input type="text" class="neo-input" placeholder="-1.286389, 36.817223" style="flex:1">
+                                <button class="cp" style="background:var(--glass-h); border:1px solid var(--p-line); border-radius:12px; padding:0 15px; color:var(--p); font-size:11px; font-weight:600; display:flex; align-items:center; gap:6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    Locate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Network Service -->
+                <div class="onboard-step" id="step-3">
+                    <div style="display:flex; flex-direction:column; gap:20px;">
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:12px;">Connection logic</label>
+                            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                                <div class="cp" style="padding:10px; border-radius:12px; border:2px solid var(--p); background:var(--glass-h); display:flex; flex-direction:column; align-items:center; gap:4px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                                    <span style="font-size:10px; font-weight:700; color:var(--t1);">PPPoE</span>
+                                </div>
+                                <div class="cp" style="padding:10px; border-radius:12px; border:1px solid var(--p-line); background:var(--glass); display:flex; flex-direction:column; align-items:center; gap:4px; opacity:0.6;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                                    <span style="font-size:10px; font-weight:600; color:var(--t3);">Hotspot</span>
+                                </div>
+                                <div class="cp" style="padding:10px; border-radius:12px; border:1px solid var(--p-line); background:var(--glass); display:flex; flex-direction:column; align-items:center; gap:4px; opacity:0.6;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                    <span style="font-size:10px; font-weight:600; color:var(--t3);">Static</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Service package</label>
+                            <div class="custom-dropdown" style="position:relative; width:100%; cursor:pointer;">
+                                <div class="cd-header neo-input cp" style="padding:14px 18px; border:1px solid var(--p-line); background:var(--glass); display:flex; justify-content:space-between; align-items:center; color:var(--t2); font-weight:600;" onclick="toggleDropdown(this, event)">
+                                    <span class="cd-val">Home Pro 30Mbps - KES 3,200</span>
+                                    <svg class="cd-arrow" style="color:var(--t4); transition:all 0.2s;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                                </div>
+                                <div class="cd-options" style="position:absolute; top:calc(100% + 6px); left:0; width:100%; background:var(--sidebar); border:1px solid var(--p-line); border-radius:16px; padding:8px; z-index:200; display:none; flex-direction:column; gap:4px; box-shadow:0 10px 25px rgba(0,0,0,0.3); backdrop-filter:blur(12px);">
+                                    <div class="cd-opt active" style="padding:12px 14px; border-radius:10px; font-size:12px; font-weight:600; color:var(--p); background:var(--glass-h);" onclick="selectOption(this, event)">Home Lite 10Mbps - KES 1,800</div>
+                                    <div class="cd-opt" style="padding:12px 14px; border-radius:10px; font-size:12px; font-weight:600; color:var(--t3); transition:all 0.2s;" onmouseover="this.style.background='var(--glass-h)'; this.style.color='var(--t1)'" onmouseout="this.style.background='transparent'; this.style.color='var(--t3)'" onclick="selectOption(this, event)">Home Pro 30Mbps - KES 3,200</div>
+                                    <div class="cd-opt" style="padding:12px 14px; border-radius:10px; font-size:12px; font-weight:600; color:var(--t3); transition:all 0.2s;" onmouseover="this.style.background='var(--glass-h)'; this.style.color='var(--t1)'" onmouseout="this.style.background='transparent'; this.style.color='var(--t3)'" onclick="selectOption(this, event)">Home Max 50Mbps - KES 5,500</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div>
+                                <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">ONT MAC address</label>
+                                <input type="text" class="neo-input mono" placeholder="FF:FF:FF:FF:FF:FF">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">VLAN ID / static IP</label>
+                                <input type="text" class="neo-input mono" placeholder="VLAN 10">
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div>
+                                <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">PPPoE username</label>
+                                <input type="text" class="neo-input mono" placeholder="user_9021">
+                            </div>
+                            <div>
+                                <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">PPPoE password</label>
+                                <input type="password" class="neo-input" placeholder="••••••••">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Payment & Finish -->
+                <div class="onboard-step" id="step-4">
+                    <div style="display:flex; flex-direction:column; gap:20px;">
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:12px;">Payment category</label>
+                            <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px;">
+                                <div class="cp pay-cat-btn" style="padding:12px 4px; border-radius:12px; border:2px solid var(--p); background:var(--glass-h); display:flex; flex-direction:column; align-items:center; gap:6px; transition:all 0.2s;" onclick="selectPayCat(this)">
+                                    <div class="circle-icon" style="width:24px; height:24px; border-radius:50%; background:var(--p); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                                    <span style="font-size:9px; font-weight:700; color:var(--t1);">Full</span>
+                                </div>
+                                <div class="cp pay-cat-btn" style="padding:12px 4px; border-radius:12px; border:1px solid var(--p-line); background:var(--glass); display:flex; flex-direction:column; align-items:center; gap:6px; opacity:0.6; transition:all 0.2s;" onclick="selectPayCat(this)">
+                                    <div class="circle-icon" style="width:24px; height:24px; border-radius:50%; background:var(--glass-h); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+                                    <span style="font-size:9px; font-weight:600; color:var(--t3);">Partial</span>
+                                </div>
+                                <div class="cp pay-cat-btn" style="padding:12px 4px; border-radius:12px; border:1px solid var(--p-line); background:var(--glass); display:flex; flex-direction:column; align-items:center; gap:6px; opacity:0.6; transition:all 0.2s;" onclick="selectPayCat(this)">
+                                    <div class="circle-icon" style="width:24px; height:24px; border-radius:50%; background:var(--glass-h); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+                                    <span style="font-size:9px; font-weight:600; color:var(--t3);">Discount</span>
+                                </div>
+                                <div class="cp pay-cat-btn" style="padding:12px 4px; border-radius:12px; border:1px solid var(--p-line); background:var(--glass); display:flex; flex-direction:column; align-items:center; gap:6px; opacity:0.6; transition:all 0.2s;" onclick="selectPayCat(this)">
+                                    <div class="circle-icon" style="width:24px; height:24px; border-radius:50%; background:var(--glass-h); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                                    <span style="font-size:9px; font-weight:600; color:var(--t3);">Pre-paid</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding:20px; border-radius:20px; background:var(--sidebar); border:1px solid var(--p-line); display:flex; flex-direction:column; gap:16px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <p style="font-size:10px; color:var(--t3); font-weight:700;">Payment method</p>
+                                    <p style="font-size:14px; font-weight:700; color:var(--t1); margin-top:2px;">M-Pesa STK Push</p>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <button class="shimmer cp" style="padding:8px 16px; border-radius:10px; background:var(--p); border:none; color:white; font-size:11px; font-weight:700;">Send Prompt</button>
+                                </div>
+                            </div>
+                            <div style="height:1px; background:var(--p-line);"></div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                                <div>
+                                    <p style="font-size:9px; color:var(--t3); font-weight:700;">Transaction ref</p>
+                                    <input type="text" class="neo-input mono" style="font-size:11px; padding:8px 12px; margin-top:4px;" placeholder="Automatically Polled">
+                                </div>
+                                <div>
+                                    <p style="font-size:9px; color:var(--t3); font-weight:700;">Total amount</p>
+                                    <p style="font-size:16px; font-weight:700; color:var(--p); margin-top:4px;">KES 3,200.00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label style="display:block; font-size:11px; font-weight:600; color:var(--t3); margin-bottom:8px;">Scheduled installation slot</label>
+                            <div class="calendar-input-wrapper" style="position:relative;">
+                                <div class="neo-input cp" style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px;" onclick="toggleCalendar(this)">
+                                    <span style="font-size:12px; color:var(--t1); font-weight:600;">12 May, 2026 at 10:00 AM</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                                </div>
+                                <!-- Premium Calendar Mockup -->
+                                <div class="premium-calendar" style="position:absolute; bottom:calc(100% + 10px); left:0; width:280px; background:var(--sidebar); border:1px solid var(--p-line); border-radius:20px; padding:20px; box-shadow:0 15px 40px rgba(0,0,0,0.4); backdrop-filter:blur(16px); z-index:300; display:none;">
+                                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                                        <span style="font-size:14px; font-weight:700; color:var(--t1);">May 2026</span>
+                                        <div style="display:flex; gap:8px;">
+                                            <div class="cp" style="width:24px; height:24px; border-radius:6px; background:var(--glass-h); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></div>
+                                            <div class="cp" style="width:24px; height:24px; border-radius:6px; background:var(--glass-h); display:flex; align-items:center; justify-content:center;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+                                        </div>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center; margin-bottom:8px;">
+                                        <span style="font-size:9px; font-weight:700; color:var(--t4);">S</span><span style="font-size:9px; font-weight:700; color:var(--t4);">M</span><span style="font-size:9px; font-weight:700; color:var(--t4);">T</span><span style="font-size:9px; font-weight:700; color:var(--t4);">W</span><span style="font-size:9px; font-weight:700; color:var(--t4);">T</span><span style="font-size:9px; font-weight:700; color:var(--t4);">F</span><span style="font-size:9px; font-weight:700; color:var(--t4);">S</span>
+                                    </div>
+                                    <div style="display:grid; grid-template-columns:repeat(7, 1fr); gap:4px; text-align:center;">
+                                        <div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">1</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">2</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">3</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">4</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">5</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">6</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">7</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">8</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">9</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">10</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">11</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:white; background:var(--p);">12</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">13</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">14</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">15</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">16</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">17</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">18</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">19</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">20</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">21</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">22</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">23</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">24</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">25</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">26</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">27</div><div class="cp" style="font-size:11px; font-weight:600; padding:6px 0; border-radius:8px; color:var(--t3);">28</div>
+                                    </div>
+                                    <div style="margin-top:16px; padding-top:16px; border-top:1px solid var(--p-line); display:flex; justify-content:space-between; align-items:center;">
+                                        <span style="font-size:10px; color:var(--t4);">Available: 09:00 - 17:00</span>
+                                        <button class="cp" style="padding:6px 12px; border-radius:8px; background:var(--glass-h); border:none; color:var(--p); font-size:10px; font-weight:700;">Set time</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Success State -->
+                <div class="onboard-success" id="step-success">
+                    <div class="success-tick-wrapper">
+                        <div class="tick-circle">
+                            <svg class="tick-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3 style="font-size:22px; font-weight:700; color:var(--t1); margin-bottom:12px;">Provisioning Complete!</h3>
+                    <p style="font-size:13px; color:var(--t3); max-width:320px; margin-bottom:32px; line-height:1.6;">The subscriber has been successfully onboarded and the service is now active.</p>
+                    <button class="shimmer cp" style="padding:12px 40px; border-radius:14px; background:var(--p); color:#fff; border:none; font-size:13px; font-weight:700;" onclick="closeModal()">Back to Dashboard</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="display:flex; gap:10px;">
+                    <button class="cp" style="padding:10px 20px; border-radius:12px; background:transparent; border:1px solid var(--p-line); color:var(--t3); font-size:12px; font-weight:600;" onclick="closeModal()">Cancel</button>
+                    <button class="cp" id="prev-btn" style="padding:10px 20px; border-radius:12px; background:transparent; border:1px solid var(--p-line); color:var(--t2); font-size:12px; font-weight:600; display:none;" onclick="prevStep()">Back</button>
+                </div>
+                <div style="flex:1"></div>
+                <button class="shimmer cp" id="next-btn" style="padding:10px 24px; border-radius:12px; background:var(--p); color:#fff; border:none; font-size:12px; font-weight:700;" onclick="nextStep()">Next Step</button>
+                <button class="shimmer cp" id="finish-btn" style="padding:10px 24px; border-radius:12px; background:var(--p); color:#fff; border:none; font-size:12px; font-weight:700; display:none;" onclick="finishOnboard()">Complete Provisioning</button>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
